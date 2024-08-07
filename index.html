@@ -4,8 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <title>Discord Emoji Downloader</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
 
-    <meta name="author" content="Tiemen" />
+    <meta name="author" content="NanashiTheNameless" />
     <meta name="description" content="Get all emojis from a server in a ZIP file." />
     <meta name="keywords" content="discord, emoji, emojis, discordapp, discord app, emoji downloader, download emoji" />
     <meta name="theme-color" content="#7289DA" />
@@ -13,7 +14,7 @@
     <meta property="og:title" content="Discord Emoji Downloader" />
     <meta property="og:description" content="Get all emojis from a server in a ZIP file." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://NanashiTheNameless.github.io/Discord-Emoji-Downloader/" />
+    <meta property="og:url" content="https://discord.namelessnanashi.dev//" />
 
     <link rel="stylesheet" type="text/css" href="assets/semantic.min.css" />
     <link rel="stylesheet" type="text/css" href="assets/app.css" />
@@ -88,16 +89,18 @@
         </div>
 
         <div class="ui inverted tab segment" id="manual" data-tab="manual">
-            <p>Make a GET request to <code>https://discordapp.com/api/v6/guilds/&lt;SERVER ID&gt;</code>, with <code>&lt;SERVER ID&gt;</code> being the server ID, also make sure you're authorised with your user token. Then copy paste the response JSON data in the textarea below <i>(in which an example is placed)</i>.</p>
+            <p>Make a GET request to <code style="user-select: all;">https://discordapp.com/api/v6/guilds/&lt;SERVER ID&gt;</code>, with <code>&lt;SERVER ID&gt;</code> being the server ID, also make sure you're authorised with your user token. Then copy paste the response JSON data in the textarea below <i>(in which an example is placed)</i>.</p>
             <p>
                 For an example on how to perform the get request, this should work
                 <font size="1">
                     <pre>
-                        <code>
+                        <code style="user-select: all;">
 curl 'https://discordapp.com/api/v6/guilds/&lt;SERVER ID&gt;' --compressed \
 -H 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.3' \
--H 'Accept: */*' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate, br, zstd' \
--H 'Referer: https://discord.com/app' -H 'Authorization: &lt;TOKEN&gt;'
+-H 'Accept: */*' -H 'Accept-Language: en-US,en;q=0.5' \
+-H 'Accept-Encoding: gzip, deflate, br, zstd' \
+-H 'Referer: https://discord.com/app' \
+-H 'Authorization: &lt;TOKEN&gt;'
                         </code>
                     </pre>
                 </font>
@@ -156,14 +159,9 @@ curl 'https://discordapp.com/api/v6/guilds/&lt;SERVER ID&gt;' --compressed \
                     <ul>
                         <li>Open the Discord desktop app or login on the Discord website <a href="https://discord.com/app" target="_blank">here</a></li>
                         <li>Open the Chrome Dev Tools with the keyboard shortcut <pre>F12</pre> or <pre>Ctrl + Shift + I</pre></li>
-                        <li>Go to the <strong>Network</strong> tab</li>
-                        <li>Click the <strong>XHR</strong> button to filter to XHR requests only</li>
-                        <li>Do any action in Discord like <strong>opening a channel</strong></li>
-                        <li>Click the <strong>science</strong> request that shows up in the list</li>
-                        <li>Go to the <strong>Headers</strong> tab</li>
-                        <li>Find <strong>authorization</strong> under <strong>Request Headers</strong> and copy your token (make sure you copy the entire token and don't copy any spaces)</li>
-                    </ul>
-                    <img src="https://i.imgur.com/2E6yB21.png" class="ui image" />
+                        <li>To enable the ability to paste in the cnsole you might need to type "<code style="user-select: all;">allow pasting</code>"</li>
+                        <li>Paste and execute the following snippet: <code style="user-select: all;">(webpackChunkdiscord_app.push([[''],{},e=&gt;{m=[];for(let c in e.c)m.push(e.c[c])}]),m).find(m=&gt;m?.exports?.default?.getToken!==void 0).exports.default.getToken()</code></li>
+                        <li>Your token will be returned at the bottom of the console. Copy the contents between "". This is your self token.</li>
                 </p>
             </div>
             <div class="actions">
