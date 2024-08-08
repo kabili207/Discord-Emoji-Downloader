@@ -33922,10 +33922,10 @@ a.ui.nag {
   box-shadow: none;
 }
 
-[data-tooltip][data-inverted]:after .header {
+/*[data-tooltip][data-inverted]:after .header {
   background-color: none;
   color: #FFFFFF;
-}
+}*/
 
 /*--------------
     Position
