@@ -88,10 +88,6 @@ $(document).ready(function() {
     $("#emojis2").hide();
     $("#stickers").hide();
 
-    $("#tokenHelp").click(() => {
-        $('.ui.basic.modal').modal('show');
-    });
-
     globalThis.guild = [];
     globalThis.emojis = [];
     globalThis.stickers = [];
