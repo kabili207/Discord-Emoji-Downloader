@@ -6,7 +6,7 @@ const Emoji = (emojiID, animated = false) => `https://cdn.discordapp.com/emojis/
 // media.discordapp.net was used instead of cdn.discordapp.com to bypass CORS problems
 const Sticker = (stickerID) => `https://media.discordapp.net/stickers/${stickerID}.png?size=1024`;
 const API = {
-    host: "https://discord.com/api/v10",
+    host: "https://discord.com/api/v9",
     emojis: (guild) => `/guilds/${guild}/emojis`,
     guilds: "/users/@me/guilds",
     guild: (id) => `/guilds/${id}`,
