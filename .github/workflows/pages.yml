@@ -14,6 +14,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
+      - name: Update Browser List
+        run: |
+          npx update-browserslist-db@latest
+
       - name: Install and Build 🔧
         run: |
           npm ci
