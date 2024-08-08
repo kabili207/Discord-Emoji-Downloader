@@ -6,7 +6,7 @@ const Emoji = (emojiID, animated = false) => `https://cdn.discordapp.com/emojis/
 // media.discordapp.net was used instead of cdn.discordapp.com to bypass CORS problems
 const Sticker = (stickerID) => `https://media.discordapp.net/stickers/${stickerID}.png?size=1024`;
 const API = {
-    host: "https://discordapp.com/api/v9",
+    host: "https://discord.com/api/v10",
     emojis: (guild) => `/guilds/${guild}/emojis`,
     guilds: "/users/@me/guilds",
     guild: (id) => `/guilds/${id}`,
@@ -230,7 +230,7 @@ $(document).ready(function() {
                     res = await fetch(Emoji(renamedEmoji[i].id, renamedEmoji[i].animated)).then(res => res.blob());
                 } catch {
                     console.log(`Emoji ${renamedEmoji[i].id} blocked by CORS, trying proxy`);
-                    res = await fetch(`https://api.cors.lol/?url=${Emoji(renamedEmoji[i].id, renamedEmoji[i].animated)}`).then(res => res.blob());
+                    res = await fetch(`https://corsproxy.io/?${Emoji(renamedEmoji[i].id, renamedEmoji[i].animated)}`).then(res => res.blob());
                 }
                 emojiFolder.file(`${renamedEmoji[i].name}.${renamedEmoji[i].animated ? "gif" : "png"}`, res);
                 emojiCount++;
@@ -244,7 +244,7 @@ $(document).ready(function() {
                     res = await fetch(Sticker(renamedStickers[i].id)).then(res => res.blob());
                 } catch {
                     console.log(`Sticker ${renamedStickers[i].id} blocked by CORS, trying proxy`);
-                    res = await fetch(`https://api.cors.lol/?url=${Sticker(renamedStickers[i].id)}`).then(res => res.blob());
+                    res = await fetch(`https://corsproxy.io/?${Sticker(renamedStickers[i].id)}`).then(res => res.blob());
                 }
                 stickerFolder.file(`${renamedStickers[i].name}.png`, res);
                 stickerCount++;
