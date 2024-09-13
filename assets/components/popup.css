@@ -8,7 +8,6 @@
  *
  */
 
-
 /*******************************
             Popup
 *******************************/
@@ -18,26 +17,28 @@
   position: absolute;
   top: 0px;
   right: 0px;
-  
-/* Fixes content being squished when inline (moz only) */
+
+  /* Fixes content being squished when inline (moz only) */
   min-width: -webkit-min-content;
   min-width: -moz-min-content;
   min-width: min-content;
   z-index: 1900;
-  border: 1px solid #D4D4D5;
+  border: 1px solid #d4d4d5;
   line-height: 1.4285em;
   max-width: 250px;
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 0.833em 1em;
   font-weight: normal;
   font-style: normal;
   color: rgba(0, 0, 0, 0.87);
   border-radius: 0.28571429rem;
-  box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15);
+  box-shadow:
+    0px 2px 4px 0px rgba(34, 36, 38, 0.12),
+    0px 2px 10px 0px rgba(34, 36, 38, 0.15);
 }
 .ui.popup > .header {
   padding: 0em;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 1.14285714em;
   line-height: 1.2;
   font-weight: bold;
@@ -47,25 +48,22 @@
 }
 .ui.popup:before {
   position: absolute;
-  content: '';
+  content: "";
   width: 0.71428571em;
   height: 0.71428571em;
-  background: #FFFFFF;
+  background: #ffffff;
   transform: rotate(45deg);
   z-index: 2;
   box-shadow: 1px 1px 0px 0px #bababc;
 }
 
-
 /*******************************
             Types
 *******************************/
 
-
 /*--------------
     Tooltip
 ---------------*/
-
 
 /* Content */
 [data-tooltip] {
@@ -76,11 +74,11 @@
 [data-tooltip]:before {
   pointer-events: none;
   position: absolute;
-  content: '';
+  content: "";
   font-size: 1rem;
   width: 0.71428571em;
   height: 0.71428571em;
-  background: #FFFFFF;
+  background: #ffffff;
   transform: rotate(45deg);
   z-index: 2;
   box-shadow: 1px 1px 0px 0px #bababc;
@@ -95,16 +93,18 @@
   text-align: left;
   white-space: nowrap;
   font-size: 1rem;
-  border: 1px solid #D4D4D5;
+  border: 1px solid #d4d4d5;
   line-height: 1.4285em;
   max-width: none;
-  background: #FFFFFF;
+  background: #ffffff;
   padding: 0.833em 1em;
   font-weight: normal;
   font-style: normal;
   color: rgba(0, 0, 0, 0.87);
   border-radius: 0.28571429rem;
-  box-shadow: 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15);
+  box-shadow:
+    0px 2px 4px 0px rgba(34, 36, 38, 0.12),
+    0px 2px 10px 0px rgba(34, 36, 38, 0.15);
   z-index: 1;
 }
 
@@ -114,7 +114,7 @@
   right: auto;
   bottom: 100%;
   left: 50%;
-  background: #FFFFFF;
+  background: #ffffff;
   margin-left: -0.07142857rem;
   margin-bottom: 0.14285714rem;
 }
@@ -187,7 +187,6 @@
     Inverted
 ---------------*/
 
-
 /* Arrow */
 [data-tooltip][data-inverted]:before {
   box-shadow: none !important;
@@ -195,25 +194,24 @@
 
 /* Arrow Position */
 [data-tooltip][data-inverted]:before {
-  background: #1B1C1D;
+  background: #1b1c1d;
 }
 
 /* Popup  */
 [data-tooltip][data-inverted]:after {
-  background: #1B1C1D;
-  color: #FFFFFF;
+  background: #1b1c1d;
+  color: #ffffff;
   border: none;
   box-shadow: none;
 }
 [data-tooltip][data-inverted]:after .header {
   background-color: none;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 
 /*--------------
     Position
 ---------------*/
-
 
 /* Top Center */
 [data-position="top center"][data-tooltip]:after {
@@ -229,7 +227,7 @@
   right: auto;
   bottom: 100%;
   left: 50%;
-  background: #FFFFFF;
+  background: #ffffff;
   margin-left: -0.07142857rem;
   margin-bottom: 0.14285714rem;
 }
@@ -346,36 +344,36 @@
 
 /* Arrow */
 [data-position~="bottom"][data-tooltip]:before {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: -1px -1px 0px 0px #bababc;
 }
 [data-position="left center"][data-tooltip]:before {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 1px -1px 0px 0px #bababc;
 }
 [data-position="right center"][data-tooltip]:before {
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: -1px 1px 0px 0px #bababc;
 }
 [data-position~="top"][data-tooltip]:before {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 /* Inverted Arrow Color */
 [data-inverted][data-position~="bottom"][data-tooltip]:before {
-  background: #1B1C1D;
+  background: #1b1c1d;
   box-shadow: -1px -1px 0px 0px #bababc;
 }
 [data-inverted][data-position="left center"][data-tooltip]:before {
-  background: #1B1C1D;
+  background: #1b1c1d;
   box-shadow: 1px -1px 0px 0px #bababc;
 }
 [data-inverted][data-position="right center"][data-tooltip]:before {
-  background: #1B1C1D;
+  background: #1b1c1d;
   box-shadow: -1px 1px 0px 0px #bababc;
 }
 [data-inverted][data-position~="top"][data-tooltip]:before {
-  background: #1B1C1D;
+  background: #1b1c1d;
 }
 [data-position~="bottom"][data-tooltip]:before {
   transform-origin: center bottom;
@@ -445,7 +443,6 @@
 /*--------------
      Pointer
 ---------------*/
-
 
 /*--- Below ---*/
 
@@ -540,40 +537,37 @@
 
 /* Arrow Color By Location */
 .ui.bottom.popup:before {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .ui.right.center.popup:before,
 .ui.left.center.popup:before {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 .ui.top.popup:before {
-  background: #FFFFFF;
+  background: #ffffff;
 }
 
 /* Inverted Arrow Color */
 .ui.inverted.bottom.popup:before {
-  background: #1B1C1D;
+  background: #1b1c1d;
 }
 .ui.inverted.right.center.popup:before,
 .ui.inverted.left.center.popup:before {
-  background: #1B1C1D;
+  background: #1b1c1d;
 }
 .ui.inverted.top.popup:before {
-  background: #1B1C1D;
+  background: #1b1c1d;
 }
-
 
 /*******************************
             Coupling
 *******************************/
-
 
 /* Immediate Nested Grid */
 .ui.popup > .ui.grid:not(.padded) {
   width: calc(100% + 1.75rem);
   margin: -0.7rem -0.875rem;
 }
-
 
 /*******************************
             States
@@ -591,14 +585,12 @@
 .ui.visible.popup {
   transform: translateZ(0px);
   -webkit-backface-visibility: hidden;
-          backface-visibility: hidden;
+  backface-visibility: hidden;
 }
-
 
 /*******************************
             Variations
 *******************************/
-
 
 /*--------------
      Basic
@@ -638,20 +630,19 @@
      Colors
 ---------------*/
 
-
 /* Inverted colors  */
 .ui.inverted.popup {
-  background: #1B1C1D;
-  color: #FFFFFF;
+  background: #1b1c1d;
+  color: #ffffff;
   border: none;
   box-shadow: none;
 }
 .ui.inverted.popup .header {
   background-color: none;
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .ui.inverted.popup:before {
-  background-color: #1B1C1D;
+  background-color: #1b1c1d;
   box-shadow: none !important;
 }
 
@@ -686,14 +677,10 @@
   font-size: 1.42857143rem;
 }
 
-
 /*******************************
          Theme Overrides
 *******************************/
 
-
-
 /*******************************
         User Overrides
 *******************************/
-

@@ -9,7 +9,6 @@
  *
  */
 
-
 /*******************************
          Advertisement
 *******************************/
@@ -35,7 +34,6 @@
 /*--------------
      Common
 ---------------*/
-
 
 /* Leaderboard */
 .ui.leaderboard.ad {
@@ -65,7 +63,6 @@
      Square
 ---------------*/
 
-
 /* Square */
 .ui.square.ad {
   width: 250px;
@@ -81,7 +78,6 @@
 /*--------------
     Rectangle
 ---------------*/
-
 
 /* Small Rectangle */
 .ui[class*="small rectangle"].ad {
@@ -116,7 +112,6 @@
    Skyscrapers
 ---------------*/
 
-
 /* Skyscraper */
 .ui.skyscraper.ad {
   width: 120px;
@@ -131,7 +126,6 @@
 /*--------------
      Banners
 ---------------*/
-
 
 /* Banner */
 .ui.banner.ad {
@@ -161,7 +155,6 @@
     Boards
 ---------------*/
 
-
 /* Leaderboard */
 .ui[class*="large leaderboard"].ad {
   width: 970px;
@@ -178,7 +171,6 @@
     Panorama
 ---------------*/
 
-
 /* Panorama */
 .ui.panorama.ad {
   width: 980px;
@@ -189,7 +181,6 @@
      Netboard
 ---------------*/
 
-
 /* Netboard */
 .ui.netboard.ad {
   width: 580px;
@@ -199,7 +190,6 @@
 /*--------------
      Mobile
 ---------------*/
-
 
 /* Large Mobile Banner */
 .ui[class*="large mobile banner"].ad {
@@ -213,11 +203,9 @@
   height: 50px;
 }
 
-
 /*******************************
              Types
 *******************************/
-
 
 /* Mobile Sizes */
 .ui.mobile.ad {
@@ -228,7 +216,6 @@
     display: block;
   }
 }
-
 
 /*******************************
            Variations
@@ -249,8 +236,8 @@
   width: 100%;
   text-align: center;
   transform: translateX(-50%) translateY(-50%);
-  content: 'Ad';
-  color: #FFFFFF;
+  content: "Ad";
+  color: #ffffff;
   font-size: 1em;
   font-weight: bold;
 }
@@ -261,14 +248,10 @@
   content: attr(data-text);
 }
 
-
 /*******************************
          Theme Overrides
 *******************************/
 
-
-
 /*******************************
     User Variable Overrides
 *******************************/
-

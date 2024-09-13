@@ -8,11 +8,9 @@
  *
  */
 
-
 /*******************************
            Standard
 *******************************/
-
 
 /*--------------------
         Inputs
@@ -33,20 +31,21 @@
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   text-align: left;
   line-height: 1.21428571em;
-  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  font-family: "Lato", "Helvetica Neue", Arial, Helvetica, sans-serif;
   padding: 0.67857143em 1em;
-  background: #FFFFFF;
+  background: #ffffff;
   border: 1px solid rgba(34, 36, 38, 0.15);
   color: rgba(0, 0, 0, 0.87);
   border-radius: 0.28571429rem;
-  transition: box-shadow 0.1s ease, border-color 0.1s ease;
+  transition:
+    box-shadow 0.1s ease,
+    border-color 0.1s ease;
   box-shadow: none;
 }
 
 /*--------------------
       Placeholder
 ---------------------*/
-
 
 /* browsers require these rules separate */
 .ui.input > input::-webkit-input-placeholder {
@@ -59,11 +58,9 @@
   color: rgba(191, 191, 191, 0.87);
 }
 
-
 /*******************************
             States
 *******************************/
-
 
 /*--------------------
         Disabled
@@ -85,7 +82,7 @@
 .ui.input > input:active,
 .ui.input.down input {
   border-color: rgba(0, 0, 0, 0.3);
-  background: #FAFAFA;
+  background: #fafafa;
   color: rgba(0, 0, 0, 0.87);
   box-shadow: none;
 }
@@ -96,7 +93,7 @@
 
 .ui.loading.loading.input > i.icon:before {
   position: absolute;
-  content: '';
+  content: "";
   top: 50%;
   left: 50%;
   margin: -0.64285714em 0em 0em -0.64285714em;
@@ -107,16 +104,16 @@
 }
 .ui.loading.loading.input > i.icon:after {
   position: absolute;
-  content: '';
+  content: "";
   top: 50%;
   left: 50%;
   margin: -0.64285714em 0em 0em -0.64285714em;
   width: 1.28571429em;
   height: 1.28571429em;
   -webkit-animation: button-spin 0.6s linear;
-          animation: button-spin 0.6s linear;
+  animation: button-spin 0.6s linear;
   -webkit-animation-iteration-count: infinite;
-          animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
   border-radius: 500rem;
   border-color: #767676 transparent transparent;
   border-style: solid;
@@ -130,8 +127,8 @@
 
 .ui.input.focus > input,
 .ui.input > input:focus {
-  border-color: #85B7D9;
-  background: #FFFFFF;
+  border-color: #85b7d9;
+  background: #ffffff;
   color: rgba(0, 0, 0, 0.8);
   box-shadow: none;
 }
@@ -153,9 +150,9 @@
 ---------------------*/
 
 .ui.input.error > input {
-  background-color: #FFF6F6;
-  border-color: #E0B4B4;
-  color: #9F3A38;
+  background-color: #fff6f6;
+  border-color: #e0b4b4;
+  color: #9f3a38;
   box-shadow: none;
 }
 
@@ -181,11 +178,9 @@
   color: #da9796 !important;
 }
 
-
 /*******************************
            Variations
 *******************************/
-
 
 /*--------------------
       Transparent
@@ -214,7 +209,7 @@
 
 /* Transparent Inverted */
 .ui.transparent.inverted.input {
-  color: #FFFFFF;
+  color: #ffffff;
 }
 .ui.transparent.inverted.input > input {
   color: inherit;
@@ -294,7 +289,6 @@
         Labeled
 ---------------------*/
 
-
 /* Adjacent Label */
 .ui.labeled.input > .label {
   flex: 0 0 auto;
@@ -316,8 +310,10 @@
   border-bottom-left-radius: 0px;
   border-left-color: transparent;
 }
-.ui.labeled.input:not([class*="corner labeled"]) .label:first-child + input:focus {
-  border-left-color: #85B7D9;
+.ui.labeled.input:not([class*="corner labeled"])
+  .label:first-child
+  + input:focus {
+  border-left-color: #85b7d9;
 }
 
 /* Regular Label on Right */
@@ -331,7 +327,7 @@
   border-bottom-left-radius: 0px;
 }
 .ui[class*="right labeled"].input > input:focus {
-  border-right-color: #85B7D9 !important;
+  border-right-color: #85b7d9 !important;
 }
 
 /* Corner Label */
@@ -343,13 +339,16 @@
 }
 
 /* Spacing with corner label */
-.ui[class*="corner labeled"]:not([class*="left corner labeled"]).labeled.input > input {
+.ui[class*="corner labeled"]:not([class*="left corner labeled"]).labeled.input
+  > input {
   padding-right: 2.5em !important;
 }
-.ui[class*="corner labeled"].icon.input:not([class*="left corner labeled"]) > input {
+.ui[class*="corner labeled"].icon.input:not([class*="left corner labeled"])
+  > input {
   padding-right: 3.25em !important;
 }
-.ui[class*="corner labeled"].icon.input:not([class*="left corner labeled"]) > .icon {
+.ui[class*="corner labeled"].icon.input:not([class*="left corner labeled"])
+  > .icon {
   margin-right: 1.25em;
 }
 
@@ -399,7 +398,9 @@
 }
 .ui.action.input:not([class*="left action"]) > .dropdown:not(:first-child),
 .ui.action.input:not([class*="left action"]) > .button:not(:first-child),
-.ui.action.input:not([class*="left action"]) > .buttons:not(:first-child) > .button {
+.ui.action.input:not([class*="left action"])
+  > .buttons:not(:first-child)
+  > .button {
   border-radius: 0px;
 }
 .ui.action.input:not([class*="left action"]) > .dropdown:last-child,
@@ -410,7 +411,7 @@
 
 /* Input Focus */
 .ui.action.input:not([class*="left action"]) > input:focus {
-  border-right-color: #85B7D9 !important;
+  border-right-color: #85b7d9 !important;
 }
 
 /* Button on Left */
@@ -432,13 +433,12 @@
 
 /* Input Focus */
 .ui[class*="left action"].input > input:focus {
-  border-left-color: #85B7D9 !important;
+  border-left-color: #85b7d9 !important;
 }
 
 /*--------------------
        Inverted
 ---------------------*/
-
 
 /* Standard */
 .ui.inverted.input > input {
@@ -482,14 +482,10 @@
   font-size: 1.71428571em;
 }
 
-
 /*******************************
          Theme Overrides
 *******************************/
 
-
-
 /*******************************
          Site Overrides
 *******************************/
-
