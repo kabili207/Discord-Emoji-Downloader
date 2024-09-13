@@ -14,38 +14,46 @@
   max-width: 100%;
   background-color: transparent;
 }
+
 img.ui.image {
   display: block;
 }
+
 .ui.image img,
 .ui.image svg {
   display: block;
   max-width: 100%;
   height: auto;
 }
+
 .ui.hidden.image,
 .ui.hidden.images {
   display: none;
 }
+
 .ui.hidden.transition.image,
 .ui.hidden.transition.images {
   display: block;
   visibility: hidden;
 }
+
 .ui.images > .hidden.transition {
   display: inline-block;
   visibility: hidden;
 }
+
 .ui.disabled.image,
 .ui.disabled.images {
   cursor: default;
   opacity: 0.45;
 }
+
 .ui.inline.image,
 .ui.inline.image img,
 .ui.inline.image svg {
   display: inline-block;
 }
+
 .ui.top.aligned.image,
 .ui.top.aligned.image img,
 .ui.top.aligned.image svg,
@@ -53,6 +61,7 @@ img.ui.image {
   display: inline-block;
   vertical-align: top;
 }
+
 .ui.middle.aligned.image,
 .ui.middle.aligned.image img,
 .ui.middle.aligned.image svg,
@@ -60,6 +69,7 @@ img.ui.image {
   display: inline-block;
   vertical-align: middle;
 }
+
 .ui.bottom.aligned.image,
 .ui.bottom.aligned.image img,
 .ui.bottom.aligned.image svg,
@@ -67,30 +77,35 @@ img.ui.image {
   display: inline-block;
   vertical-align: bottom;
 }
+
 .ui.rounded.image,
 .ui.rounded.image > *,
 .ui.rounded.images .image,
 .ui.rounded.images .image > * {
   border-radius: 0.3125em;
 }
+
 .ui.bordered.image img,
 .ui.bordered.image svg,
 .ui.bordered.images .image,
 .ui.bordered.images img,
 .ui.bordered.images svg,
 img.ui.bordered.image {
-  border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgb(0 0 0 / 10%);
 }
+
 .ui.circular.image,
 .ui.circular.images {
   overflow: hidden;
 }
+
 .ui.circular.image,
 .ui.circular.image > *,
 .ui.circular.images .image,
 .ui.circular.images .image > * {
   border-radius: 500rem;
 }
+
 .ui.fluid.image,
 .ui.fluid.image img,
 .ui.fluid.image svg,
@@ -101,6 +116,7 @@ img.ui.bordered.image {
   width: 100%;
   height: auto;
 }
+
 .ui.avatar.image,
 .ui.avatar.image img,
 .ui.avatar.image svg,
@@ -113,25 +129,30 @@ img.ui.bordered.image {
   height: 2em;
   border-radius: 500rem;
 }
+
 .ui.spaced.image {
   display: inline-block !important;
   margin-left: 0.5em;
   margin-right: 0.5em;
 }
+
 .ui[class*="left spaced"].image {
   margin-left: 0.5em;
   margin-right: 0;
 }
+
 .ui[class*="right spaced"].image {
   margin-left: 0;
   margin-right: 0.5em;
 }
+
 .ui.floated.image,
 .ui.floated.images {
   float: left;
   margin-right: 1em;
   margin-bottom: 1em;
 }
+
 .ui.right.floated.image,
 .ui.right.floated.images {
   float: right;
@@ -139,15 +160,18 @@ img.ui.bordered.image {
   margin-bottom: 1em;
   margin-left: 1em;
 }
+
 .ui.floated.image:last-child,
 .ui.floated.images:last-child {
   margin-bottom: 0;
 }
+
 .ui.centered.image,
 .ui.centered.images {
   margin-left: auto;
   margin-right: auto;
 }
+
 .ui.mini.image,
 .ui.mini.images .image,
 .ui.mini.images img,
@@ -156,6 +180,7 @@ img.ui.bordered.image {
   height: auto;
   font-size: 0.78571429rem;
 }
+
 .ui.tiny.image,
 .ui.tiny.images .image,
 .ui.tiny.images img,
@@ -164,6 +189,7 @@ img.ui.bordered.image {
   height: auto;
   font-size: 0.85714286rem;
 }
+
 .ui.small.image,
 .ui.small.images .image,
 .ui.small.images img,
@@ -172,6 +198,7 @@ img.ui.bordered.image {
   height: auto;
   font-size: 0.92857143rem;
 }
+
 .ui.medium.image,
 .ui.medium.images .image,
 .ui.medium.images img,
@@ -180,6 +207,7 @@ img.ui.bordered.image {
   height: auto;
   font-size: 1rem;
 }
+
 .ui.large.image,
 .ui.large.images .image,
 .ui.large.images img,
@@ -188,6 +216,7 @@ img.ui.bordered.image {
   height: auto;
   font-size: 1.14285714rem;
 }
+
 .ui.big.image,
 .ui.big.images .image,
 .ui.big.images img,
@@ -196,6 +225,7 @@ img.ui.bordered.image {
   height: auto;
   font-size: 1.28571429rem;
 }
+
 .ui.huge.image,
 .ui.huge.images .image,
 .ui.huge.images img,
@@ -204,6 +234,7 @@ img.ui.bordered.image {
   height: auto;
   font-size: 1.42857143rem;
 }
+
 .ui.massive.image,
 .ui.massive.images .image,
 .ui.massive.images img,
@@ -212,10 +243,12 @@ img.ui.bordered.image {
   height: auto;
   font-size: 1.71428571rem;
 }
+
 .ui.images {
   font-size: 0;
-  margin: 0 -0.25rem 0;
+  margin: 0 -0.25rem;
 }
+
 .ui.images .image,
 .ui.images > img,
 .ui.images > svg {

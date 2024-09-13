@@ -9,252 +9,252 @@
  */
 
 (function ($, window, document, undefined) {
-  "use strict";
+  'use strict'
 
   window =
-    typeof window != "undefined" && window.Math == Math
+    typeof window !== 'undefined' && window.Math == Math
       ? window
-      : typeof self != "undefined" && self.Math == Math
+      : typeof self !== 'undefined' && self.Math == Math
         ? self
-        : Function("return this")();
+        : Function('return this')()
 
   $.fn.embed = function (parameters) {
-    var $allModules = $(this),
-      moduleSelector = $allModules.selector || "",
-      time = new Date().getTime(),
-      performance = [],
-      query = arguments[0],
-      methodInvoked = typeof query == "string",
-      queryArguments = [].slice.call(arguments, 1),
-      returnedValue;
+    const $allModules = $(this)
+    const moduleSelector = $allModules.selector || ''
+    let time = new Date().getTime()
+    let performance = []
+    const query = arguments[0]
+    const methodInvoked = typeof query === 'string'
+    const queryArguments = [].slice.call(arguments, 1)
+    let returnedValue
 
     $allModules.each(function () {
-      var settings = $.isPlainObject(parameters)
-          ? $.extend(true, {}, $.fn.embed.settings, parameters)
-          : $.extend({}, $.fn.embed.settings),
-        selector = settings.selector,
-        className = settings.className,
-        sources = settings.sources,
-        error = settings.error,
-        metadata = settings.metadata,
-        namespace = settings.namespace,
-        templates = settings.templates,
-        eventNamespace = "." + namespace,
-        moduleNamespace = "module-" + namespace,
-        $window = $(window),
-        $module = $(this),
-        $placeholder = $module.find(selector.placeholder),
-        $icon = $module.find(selector.icon),
-        $embed = $module.find(selector.embed),
-        element = this,
-        instance = $module.data(moduleNamespace),
-        module;
+      const settings = $.isPlainObject(parameters)
+        ? $.extend(true, {}, $.fn.embed.settings, parameters)
+        : $.extend({}, $.fn.embed.settings)
+      const selector = settings.selector
+      const className = settings.className
+      const sources = settings.sources
+      const error = settings.error
+      const metadata = settings.metadata
+      const namespace = settings.namespace
+      const templates = settings.templates
+      const eventNamespace = '.' + namespace
+      const moduleNamespace = 'module-' + namespace
+      const $window = $(window)
+      const $module = $(this)
+      let $placeholder = $module.find(selector.placeholder)
+      let $icon = $module.find(selector.icon)
+      let $embed = $module.find(selector.embed)
+      const element = this
+      let instance = $module.data(moduleNamespace)
+      let module
 
       module = {
         initialize: function () {
-          module.debug("Initializing embed");
-          module.determine.autoplay();
-          module.create();
-          module.bind.events();
-          module.instantiate();
+          module.debug('Initializing embed')
+          module.determine.autoplay()
+          module.create()
+          module.bind.events()
+          module.instantiate()
         },
 
         instantiate: function () {
-          module.verbose("Storing instance of module", module);
-          instance = module;
-          $module.data(moduleNamespace, module);
+          module.verbose('Storing instance of module', module)
+          instance = module
+          $module.data(moduleNamespace, module)
         },
 
         destroy: function () {
-          module.verbose("Destroying previous instance of embed");
-          module.reset();
-          $module.removeData(moduleNamespace).off(eventNamespace);
+          module.verbose('Destroying previous instance of embed')
+          module.reset()
+          $module.removeData(moduleNamespace).off(eventNamespace)
         },
 
         refresh: function () {
-          module.verbose("Refreshing selector cache");
-          $placeholder = $module.find(selector.placeholder);
-          $icon = $module.find(selector.icon);
-          $embed = $module.find(selector.embed);
+          module.verbose('Refreshing selector cache')
+          $placeholder = $module.find(selector.placeholder)
+          $icon = $module.find(selector.icon)
+          $embed = $module.find(selector.embed)
         },
 
         bind: {
           events: function () {
             if (module.has.placeholder()) {
-              module.debug("Adding placeholder events");
+              module.debug('Adding placeholder events')
               $module
                 .on(
-                  "click" + eventNamespace,
+                  'click' + eventNamespace,
                   selector.placeholder,
-                  module.createAndShow,
+                  module.createAndShow
                 )
                 .on(
-                  "click" + eventNamespace,
+                  'click' + eventNamespace,
                   selector.icon,
-                  module.createAndShow,
-                );
+                  module.createAndShow
+                )
             }
-          },
+          }
         },
 
         create: function () {
-          var placeholder = module.get.placeholder();
+          const placeholder = module.get.placeholder()
           if (placeholder) {
-            module.createPlaceholder();
+            module.createPlaceholder()
           } else {
-            module.createAndShow();
+            module.createAndShow()
           }
         },
 
         createPlaceholder: function (placeholder) {
-          var icon = module.get.icon(),
-            url = module.get.url(),
-            embed = module.generate.embed(url);
-          placeholder = placeholder || module.get.placeholder();
-          $module.html(templates.placeholder(placeholder, icon));
-          module.debug("Creating placeholder for embed", placeholder, icon);
+          const icon = module.get.icon()
+          const url = module.get.url()
+          const embed = module.generate.embed(url)
+          placeholder = placeholder || module.get.placeholder()
+          $module.html(templates.placeholder(placeholder, icon))
+          module.debug('Creating placeholder for embed', placeholder, icon)
         },
 
         createEmbed: function (url) {
-          module.refresh();
-          url = url || module.get.url();
-          $embed = $("<div/>")
+          module.refresh()
+          url = url || module.get.url()
+          $embed = $('<div/>')
             .addClass(className.embed)
             .html(module.generate.embed(url))
-            .appendTo($module);
-          settings.onCreate.call(element, url);
-          module.debug("Creating embed object", $embed);
+            .appendTo($module)
+          settings.onCreate.call(element, url)
+          module.debug('Creating embed object', $embed)
         },
 
         changeEmbed: function (url) {
-          $embed.html(module.generate.embed(url));
+          $embed.html(module.generate.embed(url))
         },
 
         createAndShow: function () {
-          module.createEmbed();
-          module.show();
+          module.createEmbed()
+          module.show()
         },
 
         // sets new embed
         change: function (source, id, url) {
-          module.debug("Changing video to ", source, id, url);
-          $module.data(metadata.source, source).data(metadata.id, id);
+          module.debug('Changing video to ', source, id, url)
+          $module.data(metadata.source, source).data(metadata.id, id)
           if (url) {
-            $module.data(metadata.url, url);
+            $module.data(metadata.url, url)
           } else {
-            $module.removeData(metadata.url);
+            $module.removeData(metadata.url)
           }
           if (module.has.embed()) {
-            module.changeEmbed();
+            module.changeEmbed()
           } else {
-            module.create();
+            module.create()
           }
         },
 
         // clears embed
         reset: function () {
-          module.debug("Clearing embed and showing placeholder");
-          module.remove.data();
-          module.remove.active();
-          module.remove.embed();
-          module.showPlaceholder();
-          settings.onReset.call(element);
+          module.debug('Clearing embed and showing placeholder')
+          module.remove.data()
+          module.remove.active()
+          module.remove.embed()
+          module.showPlaceholder()
+          settings.onReset.call(element)
         },
 
         // shows current embed
         show: function () {
-          module.debug("Showing embed");
-          module.set.active();
-          settings.onDisplay.call(element);
+          module.debug('Showing embed')
+          module.set.active()
+          settings.onDisplay.call(element)
         },
 
         hide: function () {
-          module.debug("Hiding embed");
-          module.showPlaceholder();
+          module.debug('Hiding embed')
+          module.showPlaceholder()
         },
 
         showPlaceholder: function () {
-          module.debug("Showing placeholder image");
-          module.remove.active();
-          settings.onPlaceholderDisplay.call(element);
+          module.debug('Showing placeholder image')
+          module.remove.active()
+          settings.onPlaceholderDisplay.call(element)
         },
 
         get: {
           id: function () {
-            return settings.id || $module.data(metadata.id);
+            return settings.id || $module.data(metadata.id)
           },
           placeholder: function () {
-            return settings.placeholder || $module.data(metadata.placeholder);
+            return settings.placeholder || $module.data(metadata.placeholder)
           },
           icon: function () {
             return settings.icon
               ? settings.icon
               : $module.data(metadata.icon) !== undefined
                 ? $module.data(metadata.icon)
-                : module.determine.icon();
+                : module.determine.icon()
           },
           source: function (url) {
             return settings.source
               ? settings.source
               : $module.data(metadata.source) !== undefined
                 ? $module.data(metadata.source)
-                : module.determine.source();
+                : module.determine.source()
           },
           type: function () {
-            var source = module.get.source();
-            return sources[source] !== undefined ? sources[source].type : false;
+            const source = module.get.source()
+            return sources[source] !== undefined ? sources[source].type : false
           },
           url: function () {
             return settings.url
               ? settings.url
               : $module.data(metadata.url) !== undefined
                 ? $module.data(metadata.url)
-                : module.determine.url();
-          },
+                : module.determine.url()
+          }
         },
 
         determine: {
           autoplay: function () {
             if (module.should.autoplay()) {
-              settings.autoplay = true;
+              settings.autoplay = true
             }
           },
           source: function (url) {
-            var matchedSource = false;
-            url = url || module.get.url();
+            let matchedSource = false
+            url = url || module.get.url()
             if (url) {
               $.each(sources, function (name, source) {
                 if (url.search(source.domain) !== -1) {
-                  matchedSource = name;
-                  return false;
+                  matchedSource = name
+                  return false
                 }
-              });
+              })
             }
-            return matchedSource;
+            return matchedSource
           },
           icon: function () {
-            var source = module.get.source();
-            return sources[source] !== undefined ? sources[source].icon : false;
+            const source = module.get.source()
+            return sources[source] !== undefined ? sources[source].icon : false
           },
           url: function () {
-            var id = settings.id || $module.data(metadata.id),
-              source = settings.source || $module.data(metadata.source),
-              url;
+            const id = settings.id || $module.data(metadata.id)
+            const source = settings.source || $module.data(metadata.source)
+            let url
             url =
               sources[source] !== undefined
-                ? sources[source].url.replace("{id}", id)
-                : false;
+                ? sources[source].url.replace('{id}', id)
+                : false
             if (url) {
-              $module.data(metadata.url, url);
+              $module.data(metadata.url, url)
             }
-            return url;
-          },
+            return url
+          }
         },
 
         set: {
           active: function () {
-            $module.addClass(className.active);
-          },
+            $module.addClass(className.active)
+          }
         },
 
         remove: {
@@ -264,132 +264,132 @@
               .removeData(metadata.icon)
               .removeData(metadata.placeholder)
               .removeData(metadata.source)
-              .removeData(metadata.url);
+              .removeData(metadata.url)
           },
           active: function () {
-            $module.removeClass(className.active);
+            $module.removeClass(className.active)
           },
           embed: function () {
-            $embed.empty();
-          },
+            $embed.empty()
+          }
         },
 
         encode: {
           parameters: function (parameters) {
-            var urlString = [],
-              index;
+            const urlString = []
+            let index
             for (index in parameters) {
               urlString.push(
                 encodeURIComponent(index) +
-                  "=" +
-                  encodeURIComponent(parameters[index]),
-              );
+                  '=' +
+                  encodeURIComponent(parameters[index])
+              )
             }
-            return urlString.join("&amp;");
-          },
+            return urlString.join('&amp;')
+          }
         },
 
         generate: {
           embed: function (url) {
-            module.debug("Generating embed html");
-            var source = module.get.source(),
-              html,
-              parameters;
-            url = module.get.url(url);
+            module.debug('Generating embed html')
+            const source = module.get.source()
+            let html
+            let parameters
+            url = module.get.url(url)
             if (url) {
-              parameters = module.generate.parameters(source);
-              html = templates.iframe(url, parameters);
+              parameters = module.generate.parameters(source)
+              html = templates.iframe(url, parameters)
             } else {
-              module.error(error.noURL, $module);
+              module.error(error.noURL, $module)
             }
-            return html;
+            return html
           },
           parameters: function (source, extraParameters) {
-            var parameters =
+            let parameters =
               sources[source] && sources[source].parameters !== undefined
                 ? sources[source].parameters(settings)
-                : {};
-            extraParameters = extraParameters || settings.parameters;
+                : {}
+            extraParameters = extraParameters || settings.parameters
             if (extraParameters) {
-              parameters = $.extend({}, parameters, extraParameters);
+              parameters = $.extend({}, parameters, extraParameters)
             }
-            parameters = settings.onEmbed(parameters);
-            return module.encode.parameters(parameters);
-          },
+            parameters = settings.onEmbed(parameters)
+            return module.encode.parameters(parameters)
+          }
         },
 
         has: {
           embed: function () {
-            return $embed.length > 0;
+            return $embed.length > 0
           },
           placeholder: function () {
-            return settings.placeholder || $module.data(metadata.placeholder);
-          },
+            return settings.placeholder || $module.data(metadata.placeholder)
+          }
         },
 
         should: {
           autoplay: function () {
-            return settings.autoplay === "auto"
+            return settings.autoplay === 'auto'
               ? settings.placeholder ||
                   $module.data(metadata.placeholder) !== undefined
-              : settings.autoplay;
-          },
+              : settings.autoplay
+          }
         },
 
         is: {
           video: function () {
-            return module.get.type() == "video";
-          },
+            return module.get.type() == 'video'
+          }
         },
 
         setting: function (name, value) {
-          module.debug("Changing setting", name, value);
+          module.debug('Changing setting', name, value)
           if ($.isPlainObject(name)) {
-            $.extend(true, settings, name);
+            $.extend(true, settings, name)
           } else if (value !== undefined) {
             if ($.isPlainObject(settings[name])) {
-              $.extend(true, settings[name], value);
+              $.extend(true, settings[name], value)
             } else {
-              settings[name] = value;
+              settings[name] = value
             }
           } else {
-            return settings[name];
+            return settings[name]
           }
         },
         internal: function (name, value) {
           if ($.isPlainObject(name)) {
-            $.extend(true, module, name);
+            $.extend(true, module, name)
           } else if (value !== undefined) {
-            module[name] = value;
+            module[name] = value
           } else {
-            return module[name];
+            return module[name]
           }
         },
         debug: function () {
           if (!settings.silent && settings.debug) {
             if (settings.performance) {
-              module.performance.log(arguments);
+              module.performance.log(arguments)
             } else {
               module.debug = Function.prototype.bind.call(
                 console.info,
                 console,
-                settings.name + ":",
-              );
-              module.debug.apply(console, arguments);
+                settings.name + ':'
+              )
+              module.debug.apply(console, arguments)
             }
           }
         },
         verbose: function () {
           if (!settings.silent && settings.verbose && settings.debug) {
             if (settings.performance) {
-              module.performance.log(arguments);
+              module.performance.log(arguments)
             } else {
               module.verbose = Function.prototype.bind.call(
                 console.info,
                 console,
-                settings.name + ":",
-              );
-              module.verbose.apply(console, arguments);
+                settings.name + ':'
+              )
+              module.verbose.apply(console, arguments)
             }
           }
         },
@@ -398,136 +398,136 @@
             module.error = Function.prototype.bind.call(
               console.error,
               console,
-              settings.name + ":",
-            );
-            module.error.apply(console, arguments);
+              settings.name + ':'
+            )
+            module.error.apply(console, arguments)
           }
         },
         performance: {
           log: function (message) {
-            var currentTime, executionTime, previousTime;
+            let currentTime, executionTime, previousTime
             if (settings.performance) {
-              currentTime = new Date().getTime();
-              previousTime = time || currentTime;
-              executionTime = currentTime - previousTime;
-              time = currentTime;
+              currentTime = new Date().getTime()
+              previousTime = time || currentTime
+              executionTime = currentTime - previousTime
+              time = currentTime
               performance.push({
                 Name: message[0],
-                Arguments: [].slice.call(message, 1) || "",
+                Arguments: [].slice.call(message, 1) || '',
                 Element: element,
-                "Execution Time": executionTime,
-              });
+                'Execution Time': executionTime
+              })
             }
-            clearTimeout(module.performance.timer);
+            clearTimeout(module.performance.timer)
             module.performance.timer = setTimeout(
               module.performance.display,
-              500,
-            );
+              500
+            )
           },
           display: function () {
-            var title = settings.name + ":",
-              totalTime = 0;
-            time = false;
-            clearTimeout(module.performance.timer);
+            let title = settings.name + ':'
+            let totalTime = 0
+            time = false
+            clearTimeout(module.performance.timer)
             $.each(performance, function (index, data) {
-              totalTime += data["Execution Time"];
-            });
-            title += " " + totalTime + "ms";
+              totalTime += data['Execution Time']
+            })
+            title += ' ' + totalTime + 'ms'
             if (moduleSelector) {
-              title += " '" + moduleSelector + "'";
+              title += " '" + moduleSelector + "'"
             }
             if ($allModules.length > 1) {
-              title += " " + "(" + $allModules.length + ")";
+              title += ' ' + '(' + $allModules.length + ')'
             }
             if (
               (console.group !== undefined || console.table !== undefined) &&
               performance.length > 0
             ) {
-              console.groupCollapsed(title);
+              console.groupCollapsed(title)
               if (console.table) {
-                console.table(performance);
+                console.table(performance)
               } else {
                 $.each(performance, function (index, data) {
                   console.log(
-                    data["Name"] + ": " + data["Execution Time"] + "ms",
-                  );
-                });
+                    data.Name + ': ' + data['Execution Time'] + 'ms'
+                  )
+                })
               }
-              console.groupEnd();
+              console.groupEnd()
             }
-            performance = [];
-          },
+            performance = []
+          }
         },
         invoke: function (query, passedArguments, context) {
-          var object = instance,
-            maxDepth,
-            found,
-            response;
-          passedArguments = passedArguments || queryArguments;
-          context = element || context;
-          if (typeof query == "string" && object !== undefined) {
-            query = query.split(/[\. ]/);
-            maxDepth = query.length - 1;
+          let object = instance
+          let maxDepth
+          let found
+          let response
+          passedArguments = passedArguments || queryArguments
+          context = element || context
+          if (typeof query === 'string' && object !== undefined) {
+            query = query.split(/[\. ]/)
+            maxDepth = query.length - 1
             $.each(query, function (depth, value) {
-              var camelCaseValue =
+              const camelCaseValue =
                 depth != maxDepth
                   ? value +
                     query[depth + 1].charAt(0).toUpperCase() +
                     query[depth + 1].slice(1)
-                  : query;
+                  : query
               if (
                 $.isPlainObject(object[camelCaseValue]) &&
                 depth != maxDepth
               ) {
-                object = object[camelCaseValue];
+                object = object[camelCaseValue]
               } else if (object[camelCaseValue] !== undefined) {
-                found = object[camelCaseValue];
-                return false;
+                found = object[camelCaseValue]
+                return false
               } else if ($.isPlainObject(object[value]) && depth != maxDepth) {
-                object = object[value];
+                object = object[value]
               } else if (object[value] !== undefined) {
-                found = object[value];
-                return false;
+                found = object[value]
+                return false
               } else {
-                module.error(error.method, query);
-                return false;
+                module.error(error.method, query)
+                return false
               }
-            });
+            })
           }
           if ($.isFunction(found)) {
-            response = found.apply(context, passedArguments);
+            response = found.apply(context, passedArguments)
           } else if (found !== undefined) {
-            response = found;
+            response = found
           }
           if ($.isArray(returnedValue)) {
-            returnedValue.push(response);
+            returnedValue.push(response)
           } else if (returnedValue !== undefined) {
-            returnedValue = [returnedValue, response];
+            returnedValue = [returnedValue, response]
           } else if (response !== undefined) {
-            returnedValue = response;
+            returnedValue = response
           }
-          return found;
-        },
-      };
+          return found
+        }
+      }
 
       if (methodInvoked) {
         if (instance === undefined) {
-          module.initialize();
+          module.initialize()
         }
-        module.invoke(query);
+        module.invoke(query)
       } else {
         if (instance !== undefined) {
-          instance.invoke("destroy");
+          instance.invoke('destroy')
         }
-        module.initialize();
+        module.initialize()
       }
-    });
-    return returnedValue !== undefined ? returnedValue : this;
-  };
+    })
+    return returnedValue !== undefined ? returnedValue : this
+  }
 
   $.fn.embed.settings = {
-    name: "Embed",
-    namespace: "embed",
+    name: 'Embed',
+    namespace: 'embed',
 
     silent: false,
     debug: false,
@@ -540,8 +540,8 @@
     id: false,
 
     // standard video settings
-    autoplay: "auto",
-    color: "#444444",
+    autoplay: 'auto',
+    color: '#444444',
     hd: true,
     brandedUI: false,
 
@@ -553,40 +553,40 @@
     onReset: function () {},
     onCreate: function (url) {},
     onEmbed: function (parameters) {
-      return parameters;
+      return parameters
     },
 
     metadata: {
-      id: "id",
-      icon: "icon",
-      placeholder: "placeholder",
-      source: "source",
-      url: "url",
+      id: 'id',
+      icon: 'icon',
+      placeholder: 'placeholder',
+      source: 'source',
+      url: 'url'
     },
 
     error: {
-      noURL: "No URL specified",
-      method: "The method you called is not defined",
+      noURL: 'No URL specified',
+      method: 'The method you called is not defined'
     },
 
     className: {
-      active: "active",
-      embed: "embed",
+      active: 'active',
+      embed: 'embed'
     },
 
     selector: {
-      embed: ".embed",
-      placeholder: ".placeholder",
-      icon: ".icon",
+      embed: '.embed',
+      placeholder: '.placeholder',
+      icon: '.icon'
     },
 
     sources: {
       youtube: {
-        name: "youtube",
-        type: "video",
-        icon: "video play",
-        domain: "youtube.com",
-        url: "//www.youtube.com/embed/{id}",
+        name: 'youtube',
+        type: 'video',
+        icon: 'video play',
+        domain: 'youtube.com',
+        url: '//www.youtube.com/embed/{id}',
         parameters: function (settings) {
           return {
             autohide: !settings.brandedUI,
@@ -594,16 +594,16 @@
             color: settings.color || undefined,
             hq: settings.hd,
             jsapi: settings.api,
-            modestbranding: !settings.brandedUI,
-          };
-        },
+            modestbranding: !settings.brandedUI
+          }
+        }
       },
       vimeo: {
-        name: "vimeo",
-        type: "video",
-        icon: "video play",
-        domain: "vimeo.com",
-        url: "//player.vimeo.com/video/{id}",
+        name: 'vimeo',
+        type: 'video',
+        icon: 'video play',
+        domain: 'vimeo.com',
+        url: '//player.vimeo.com/video/{id}',
         parameters: function (settings) {
           return {
             api: settings.api,
@@ -611,43 +611,43 @@
             byline: settings.brandedUI,
             color: settings.color || undefined,
             portrait: settings.brandedUI,
-            title: settings.brandedUI,
-          };
-        },
-      },
+            title: settings.brandedUI
+          }
+        }
+      }
     },
 
     templates: {
       iframe: function (url, parameters) {
-        var src = url;
+        let src = url
         if (parameters) {
-          src += "?" + parameters;
+          src += '?' + parameters
         }
         return (
-          "" +
+          '' +
           '<iframe src="' +
           src +
           '"' +
           ' width="100%" height="100%"' +
           ' frameborder="0" scrolling="no" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'
-        );
+        )
       },
       placeholder: function (image, icon) {
-        var html = "";
+        let html = ''
         if (icon) {
-          html += '<i class="' + icon + ' icon"></i>';
+          html += '<i class="' + icon + ' icon"></i>'
         }
         if (image) {
-          html += '<img class="placeholder" src="' + image + '">';
+          html += '<img class="placeholder" src="' + image + '">'
         }
-        return html;
-      },
+        return html
+      }
     },
 
     // NOT YET IMPLEMENTED
     api: false,
     onPause: function () {},
     onPlay: function () {},
-    onStop: function () {},
-  };
-})(jQuery, window, document);
+    onStop: function () {}
+  }
+})(jQuery, window, document)

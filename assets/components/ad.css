@@ -16,24 +16,27 @@
 .ui.ad {
   display: block;
   overflow: hidden;
-  margin: 1em 0em;
+  margin: 1em 0;
 }
+
 .ui.ad:first-child {
-  margin: 0em;
+  margin: 0;
 }
+
 .ui.ad:last-child {
-  margin: 0em;
+  margin: 0;
 }
+
 .ui.ad iframe {
-  margin: 0em;
-  padding: 0em;
+  margin: 0;
+  padding: 0;
   border: none;
   overflow: hidden;
 }
 
-/*--------------
+/* --------------
      Common
----------------*/
+--------------- */
 
 /* Leaderboard */
 .ui.leaderboard.ad {
@@ -59,9 +62,9 @@
   height: 600px;
 }
 
-/*--------------
+/* --------------
      Square
----------------*/
+--------------- */
 
 /* Square */
 .ui.square.ad {
@@ -75,9 +78,9 @@
   height: 200px;
 }
 
-/*--------------
+/* --------------
     Rectangle
----------------*/
+--------------- */
 
 /* Small Rectangle */
 .ui[class*="small rectangle"].ad {
@@ -91,26 +94,28 @@
   height: 400px;
 }
 
-/*--------------
+/* --------------
      Button
----------------*/
+--------------- */
 
 .ui.button.ad {
   width: 120px;
   height: 90px;
 }
+
 .ui[class*="square button"].ad {
   width: 125px;
   height: 125px;
 }
+
 .ui[class*="small button"].ad {
   width: 120px;
   height: 60px;
 }
 
-/*--------------
+/* --------------
    Skyscrapers
----------------*/
+--------------- */
 
 /* Skyscraper */
 .ui.skyscraper.ad {
@@ -123,9 +128,9 @@
   width: 160px;
 }
 
-/*--------------
+/* --------------
      Banners
----------------*/
+--------------- */
 
 /* Banner */
 .ui.banner.ad {
@@ -151,9 +156,9 @@
   height: 60px;
 }
 
-/*--------------
+/* --------------
     Boards
----------------*/
+--------------- */
 
 /* Leaderboard */
 .ui[class*="large leaderboard"].ad {
@@ -167,9 +172,9 @@
   height: 250px;
 }
 
-/*--------------
+/* --------------
     Panorama
----------------*/
+--------------- */
 
 /* Panorama */
 .ui.panorama.ad {
@@ -177,9 +182,9 @@
   height: 120px;
 }
 
-/*--------------
+/* --------------
      Netboard
----------------*/
+--------------- */
 
 /* Netboard */
 .ui.netboard.ad {
@@ -187,9 +192,9 @@
   height: 400px;
 }
 
-/*--------------
+/* --------------
      Mobile
----------------*/
+--------------- */
 
 /* Large Mobile Banner */
 .ui[class*="large mobile banner"].ad {
@@ -211,7 +216,8 @@
 .ui.mobile.ad {
   display: none;
 }
-@media only screen and (max-width: 767px) {
+
+@media only screen and (width <= 767px) {
   .ui.mobile.ad {
     display: block;
   }
@@ -225,11 +231,13 @@
   margin-left: auto;
   margin-right: auto;
 }
+
 .ui.test.ad {
   position: relative;
   background: #545454;
 }
-.ui.test.ad:after {
+
+.ui.test.ad::after {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -237,14 +245,16 @@
   text-align: center;
   transform: translateX(-50%) translateY(-50%);
   content: "Ad";
-  color: #ffffff;
+  color: #fff;
   font-size: 1em;
   font-weight: bold;
 }
-.ui.mobile.test.ad:after {
+
+.ui.mobile.test.ad::after {
   font-size: 0.85714286em;
 }
-.ui.test.ad[data-text]:after {
+
+.ui.test.ad[data-text]::after {
   content: attr(data-text);
 }
 

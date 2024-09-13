@@ -16,29 +16,32 @@
   display: none;
   opacity: 0.95;
   position: relative;
-  top: 0em;
-  left: 0px;
+  top: 0;
+  left: 0;
   z-index: 999;
-  min-height: 0em;
+  min-height: 0;
   width: 100%;
-  margin: 0em;
+  margin: 0;
   padding: 0.75em 1em;
-  background: #555555;
-  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.2);
+  background: #555;
+  box-shadow: 0 1px 2px 0 rgb(0 0 0 / 20%);
   font-size: 1rem;
   text-align: center;
-  color: rgba(0, 0, 0, 0.87);
-  border-radius: 0em 0em 0.28571429rem 0.28571429rem;
+  color: rgb(0 0 0 / 87%);
+  border-radius: 0 0 0.28571429rem 0.28571429rem;
   transition: 0.2s background ease;
 }
+
 a.ui.nag {
   cursor: pointer;
 }
+
 .ui.nag > .title {
   display: inline-block;
-  margin: 0em 0.5em;
-  color: #ffffff;
+  margin: 0 0.5em;
+  color: #fff;
 }
+
 .ui.nag > .close.icon {
   cursor: pointer;
   opacity: 0.4;
@@ -46,8 +49,8 @@ a.ui.nag {
   top: 50%;
   right: 1em;
   font-size: 1em;
-  margin: -0.5em 0em 0em;
-  color: #ffffff;
+  margin: -0.5em 0 0;
+  color: #fff;
   transition: opacity 0.2s ease;
 }
 
@@ -57,9 +60,10 @@ a.ui.nag {
 
 /* Hover */
 .ui.nag:hover {
-  background: #555555;
+  background: #555;
   opacity: 1;
 }
+
 .ui.nag .close:hover {
   opacity: 1;
 }
@@ -68,48 +72,49 @@ a.ui.nag {
            Variations
 *******************************/
 
-/*--------------
+/* --------------
      Static
----------------*/
+--------------- */
 
 .ui.overlay.nag {
   position: absolute;
   display: block;
 }
 
-/*--------------
+/* --------------
      Fixed
----------------*/
+--------------- */
 
 .ui.fixed.nag {
   position: fixed;
 }
 
-/*--------------
+/* --------------
      Bottom
----------------*/
+--------------- */
 
 .ui.bottom.nags,
 .ui.bottom.nag {
-  border-radius: 0.28571429rem 0.28571429rem 0em 0em;
+  border-radius: 0.28571429rem 0.28571429rem 0 0;
   top: auto;
-  bottom: 0em;
+  bottom: 0;
 }
 
-/*--------------
+/* --------------
      White
----------------*/
+--------------- */
 
 .ui.inverted.nags .nag,
 .ui.inverted.nag {
   background-color: #f3f4f5;
-  color: rgba(0, 0, 0, 0.85);
+  color: rgb(0 0 0 / 85%);
 }
+
 .ui.inverted.nags .nag .close,
 .ui.inverted.nags .nag .title,
 .ui.inverted.nag .close,
 .ui.inverted.nag .title {
-  color: rgba(0, 0, 0, 0.4);
+  color: rgb(0 0 0 / 40%);
 }
 
 /*******************************
@@ -117,13 +122,15 @@ a.ui.nag {
 *******************************/
 
 .ui.nags .nag {
-  border-radius: 0em !important;
+  border-radius: 0 !important;
 }
+
 .ui.nags .nag:last-child {
-  border-radius: 0em 0em 0.28571429rem 0.28571429rem;
+  border-radius: 0 0 0.28571429rem 0.28571429rem;
 }
+
 .ui.bottom.nags .nag:last-child {
-  border-radius: 0.28571429rem 0.28571429rem 0em 0em;
+  border-radius: 0.28571429rem 0.28571429rem 0 0;
 }
 
 /*******************************

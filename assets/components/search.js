@@ -9,122 +9,122 @@
  */
 
 (function ($, window, document, undefined) {
-  "use strict";
+  'use strict'
 
   window =
-    typeof window != "undefined" && window.Math == Math
+    typeof window !== 'undefined' && window.Math == Math
       ? window
-      : typeof self != "undefined" && self.Math == Math
+      : typeof self !== 'undefined' && self.Math == Math
         ? self
-        : Function("return this")();
+        : Function('return this')()
 
   $.fn.search = function (parameters) {
-    var $allModules = $(this),
-      moduleSelector = $allModules.selector || "",
-      time = new Date().getTime(),
-      performance = [],
-      query = arguments[0],
-      methodInvoked = typeof query == "string",
-      queryArguments = [].slice.call(arguments, 1),
-      returnedValue;
+    const $allModules = $(this)
+    const moduleSelector = $allModules.selector || ''
+    let time = new Date().getTime()
+    let performance = []
+    const query = arguments[0]
+    const methodInvoked = typeof query === 'string'
+    const queryArguments = [].slice.call(arguments, 1)
+    let returnedValue
     $(this).each(function () {
-      var settings = $.isPlainObject(parameters)
-          ? $.extend(true, {}, $.fn.search.settings, parameters)
-          : $.extend({}, $.fn.search.settings),
-        className = settings.className,
-        metadata = settings.metadata,
-        regExp = settings.regExp,
-        fields = settings.fields,
-        selector = settings.selector,
-        error = settings.error,
-        namespace = settings.namespace,
-        eventNamespace = "." + namespace,
-        moduleNamespace = namespace + "-module",
-        $module = $(this),
-        $prompt = $module.find(selector.prompt),
-        $searchButton = $module.find(selector.searchButton),
-        $results = $module.find(selector.results),
-        $result = $module.find(selector.result),
-        $category = $module.find(selector.category),
-        element = this,
-        instance = $module.data(moduleNamespace),
-        disabledBubbled = false,
-        resultsDismissed = false,
-        module;
+      const settings = $.isPlainObject(parameters)
+        ? $.extend(true, {}, $.fn.search.settings, parameters)
+        : $.extend({}, $.fn.search.settings)
+      const className = settings.className
+      const metadata = settings.metadata
+      const regExp = settings.regExp
+      const fields = settings.fields
+      const selector = settings.selector
+      const error = settings.error
+      const namespace = settings.namespace
+      const eventNamespace = '.' + namespace
+      const moduleNamespace = namespace + '-module'
+      const $module = $(this)
+      let $prompt = $module.find(selector.prompt)
+      let $searchButton = $module.find(selector.searchButton)
+      let $results = $module.find(selector.results)
+      let $result = $module.find(selector.result)
+      let $category = $module.find(selector.category)
+      const element = this
+      let instance = $module.data(moduleNamespace)
+      let disabledBubbled = false
+      let resultsDismissed = false
+      let module
 
       module = {
         initialize: function () {
-          module.verbose("Initializing module");
-          module.get.settings();
-          module.determine.searchFields();
-          module.bind.events();
-          module.set.type();
-          module.create.results();
-          module.instantiate();
+          module.verbose('Initializing module')
+          module.get.settings()
+          module.determine.searchFields()
+          module.bind.events()
+          module.set.type()
+          module.create.results()
+          module.instantiate()
         },
         instantiate: function () {
-          module.verbose("Storing instance of module", module);
-          instance = module;
-          $module.data(moduleNamespace, module);
+          module.verbose('Storing instance of module', module)
+          instance = module
+          $module.data(moduleNamespace, module)
         },
         destroy: function () {
-          module.verbose("Destroying instance");
-          $module.off(eventNamespace).removeData(moduleNamespace);
+          module.verbose('Destroying instance')
+          $module.off(eventNamespace).removeData(moduleNamespace)
         },
 
         refresh: function () {
-          module.debug("Refreshing selector cache");
-          $prompt = $module.find(selector.prompt);
-          $searchButton = $module.find(selector.searchButton);
-          $category = $module.find(selector.category);
-          $results = $module.find(selector.results);
-          $result = $module.find(selector.result);
+          module.debug('Refreshing selector cache')
+          $prompt = $module.find(selector.prompt)
+          $searchButton = $module.find(selector.searchButton)
+          $category = $module.find(selector.category)
+          $results = $module.find(selector.results)
+          $result = $module.find(selector.result)
         },
 
         refreshResults: function () {
-          $results = $module.find(selector.results);
-          $result = $module.find(selector.result);
+          $results = $module.find(selector.results)
+          $result = $module.find(selector.result)
         },
 
         bind: {
           events: function () {
-            module.verbose("Binding events to search");
+            module.verbose('Binding events to search')
             if (settings.automatic) {
               $module.on(
                 module.get.inputEvent() + eventNamespace,
                 selector.prompt,
-                module.event.input,
-              );
-              $prompt.attr("autocomplete", "off");
+                module.event.input
+              )
+              $prompt.attr('autocomplete', 'off')
             }
             $module
               // prompt
-              .on("focus" + eventNamespace, selector.prompt, module.event.focus)
-              .on("blur" + eventNamespace, selector.prompt, module.event.blur)
+              .on('focus' + eventNamespace, selector.prompt, module.event.focus)
+              .on('blur' + eventNamespace, selector.prompt, module.event.blur)
               .on(
-                "keydown" + eventNamespace,
+                'keydown' + eventNamespace,
                 selector.prompt,
-                module.handleKeyboard,
+                module.handleKeyboard
               )
               // search button
-              .on("click" + eventNamespace, selector.searchButton, module.query)
+              .on('click' + eventNamespace, selector.searchButton, module.query)
               // results
               .on(
-                "mousedown" + eventNamespace,
+                'mousedown' + eventNamespace,
                 selector.results,
-                module.event.result.mousedown,
+                module.event.result.mousedown
               )
               .on(
-                "mouseup" + eventNamespace,
+                'mouseup' + eventNamespace,
                 selector.results,
-                module.event.result.mouseup,
+                module.event.result.mouseup
               )
               .on(
-                "click" + eventNamespace,
+                'click' + eventNamespace,
                 selector.result,
-                module.event.result.click,
-              );
-          },
+                module.event.result.click
+              )
+          }
         },
 
         determine: {
@@ -132,870 +132,870 @@
             // this makes sure $.extend does not add specified search fields to default fields
             // this is the only setting which should not extend defaults
             if (parameters && parameters.searchFields !== undefined) {
-              settings.searchFields = parameters.searchFields;
+              settings.searchFields = parameters.searchFields
             }
-          },
+          }
         },
 
         event: {
           input: function () {
             if (settings.searchDelay) {
-              clearTimeout(module.timer);
+              clearTimeout(module.timer)
               module.timer = setTimeout(function () {
                 if (module.is.focused()) {
-                  module.query();
+                  module.query()
                 }
-              }, settings.searchDelay);
+              }, settings.searchDelay)
             } else {
-              module.query();
+              module.query()
             }
           },
           focus: function () {
-            module.set.focus();
+            module.set.focus()
             if (settings.searchOnFocus && module.has.minimumCharacters()) {
               module.query(function () {
                 if (module.can.show()) {
-                  module.showResults();
+                  module.showResults()
                 }
-              });
+              })
             }
           },
           blur: function (event) {
-            var pageLostFocus = document.activeElement === this,
-              callback = function () {
-                module.cancel.query();
-                module.remove.focus();
-                module.timer = setTimeout(
-                  module.hideResults,
-                  settings.hideDelay,
-                );
-              };
-            if (pageLostFocus) {
-              return;
+            const pageLostFocus = document.activeElement === this
+            const callback = function () {
+              module.cancel.query()
+              module.remove.focus()
+              module.timer = setTimeout(
+                module.hideResults,
+                settings.hideDelay
+              )
             }
-            resultsDismissed = false;
+            if (pageLostFocus) {
+              return
+            }
+            resultsDismissed = false
             if (module.resultsClicked) {
-              module.debug("Determining if user action caused search to close");
+              module.debug('Determining if user action caused search to close')
               $module.one(
-                "click.close" + eventNamespace,
+                'click.close' + eventNamespace,
                 selector.results,
                 function (event) {
                   if (module.is.inMessage(event) || disabledBubbled) {
-                    $prompt.focus();
-                    return;
+                    $prompt.focus()
+                    return
                   }
-                  disabledBubbled = false;
+                  disabledBubbled = false
                   if (!module.is.animating() && !module.is.hidden()) {
-                    callback();
+                    callback()
                   }
-                },
-              );
+                }
+              )
             } else {
               module.debug(
-                "Input blurred without user action, closing results",
-              );
-              callback();
+                'Input blurred without user action, closing results'
+              )
+              callback()
             }
           },
           result: {
             mousedown: function () {
-              module.resultsClicked = true;
+              module.resultsClicked = true
             },
             mouseup: function () {
-              module.resultsClicked = false;
+              module.resultsClicked = false
             },
             click: function (event) {
-              module.debug("Search result selected");
-              var $result = $(this),
-                $title = $result.find(selector.title).eq(0),
-                $link = $result.is("a[href]")
-                  ? $result
-                  : $result.find("a[href]").eq(0),
-                href = $link.attr("href") || false,
-                target = $link.attr("target") || false,
-                title = $title.html(),
-                // title is used for result lookup
-                value = $title.length > 0 ? $title.text() : false,
-                results = module.get.results(),
-                result =
+              module.debug('Search result selected')
+              const $result = $(this)
+              const $title = $result.find(selector.title).eq(0)
+              const $link = $result.is('a[href]')
+                ? $result
+                : $result.find('a[href]').eq(0)
+              const href = $link.attr('href') || false
+              const target = $link.attr('target') || false
+              const title = $title.html()
+              // title is used for result lookup
+              const value = $title.length > 0 ? $title.text() : false
+              const results = module.get.results()
+              const result =
                   $result.data(metadata.result) ||
-                  module.get.result(value, results),
-                returnedValue;
+                  module.get.result(value, results)
+              let returnedValue
               if ($.isFunction(settings.onSelect)) {
                 if (
                   settings.onSelect.call(element, result, results) === false
                 ) {
                   module.debug(
-                    "Custom onSelect callback cancelled default select action",
-                  );
-                  disabledBubbled = true;
-                  return;
+                    'Custom onSelect callback cancelled default select action'
+                  )
+                  disabledBubbled = true
+                  return
                 }
               }
-              module.hideResults();
+              module.hideResults()
               if (value) {
-                module.set.value(value);
+                module.set.value(value)
               }
               if (href) {
-                module.verbose("Opening search link found in result", $link);
-                if (target == "_blank" || event.ctrlKey) {
-                  window.open(href);
+                module.verbose('Opening search link found in result', $link)
+                if (target == '_blank' || event.ctrlKey) {
+                  window.open(href)
                 } else {
-                  window.location.href = href;
+                  window.location.href = href
                 }
               }
-            },
-          },
+            }
+          }
         },
         handleKeyboard: function (event) {
-          var // force selector refresh
-            $result = $module.find(selector.result),
-            $category = $module.find(selector.category),
-            $activeResult = $result.filter("." + className.active),
-            currentIndex = $result.index($activeResult),
-            resultSize = $result.length,
-            hasActiveResult = $activeResult.length > 0,
-            keyCode = event.which,
-            keys = {
-              backspace: 8,
-              enter: 13,
-              escape: 27,
-              upArrow: 38,
-              downArrow: 40,
-            },
-            newIndex;
+          const // force selector refresh
+            $result = $module.find(selector.result)
+          const $category = $module.find(selector.category)
+          const $activeResult = $result.filter('.' + className.active)
+          const currentIndex = $result.index($activeResult)
+          const resultSize = $result.length
+          const hasActiveResult = $activeResult.length > 0
+          const keyCode = event.which
+          const keys = {
+            backspace: 8,
+            enter: 13,
+            escape: 27,
+            upArrow: 38,
+            downArrow: 40
+          }
+          let newIndex
           // search shortcuts
           if (keyCode == keys.escape) {
-            module.verbose("Escape key pressed, blurring search field");
-            module.hideResults();
-            resultsDismissed = true;
+            module.verbose('Escape key pressed, blurring search field')
+            module.hideResults()
+            resultsDismissed = true
           }
           if (module.is.visible()) {
             if (keyCode == keys.enter) {
-              module.verbose("Enter key pressed, selecting active result");
-              if ($result.filter("." + className.active).length > 0) {
+              module.verbose('Enter key pressed, selecting active result')
+              if ($result.filter('.' + className.active).length > 0) {
                 module.event.result.click.call(
-                  $result.filter("." + className.active),
-                  event,
-                );
-                event.preventDefault();
-                return false;
+                  $result.filter('.' + className.active),
+                  event
+                )
+                event.preventDefault()
+                return false
               }
             } else if (keyCode == keys.upArrow && hasActiveResult) {
-              module.verbose("Up key pressed, changing active result");
-              newIndex = currentIndex - 1 < 0 ? currentIndex : currentIndex - 1;
-              $category.removeClass(className.active);
+              module.verbose('Up key pressed, changing active result')
+              newIndex = currentIndex - 1 < 0 ? currentIndex : currentIndex - 1
+              $category.removeClass(className.active)
               $result
                 .removeClass(className.active)
                 .eq(newIndex)
                 .addClass(className.active)
                 .closest($category)
-                .addClass(className.active);
-              event.preventDefault();
+                .addClass(className.active)
+              event.preventDefault()
             } else if (keyCode == keys.downArrow) {
-              module.verbose("Down key pressed, changing active result");
+              module.verbose('Down key pressed, changing active result')
               newIndex =
                 currentIndex + 1 >= resultSize
                   ? currentIndex
-                  : currentIndex + 1;
-              $category.removeClass(className.active);
+                  : currentIndex + 1
+              $category.removeClass(className.active)
               $result
                 .removeClass(className.active)
                 .eq(newIndex)
                 .addClass(className.active)
                 .closest($category)
-                .addClass(className.active);
-              event.preventDefault();
+                .addClass(className.active)
+              event.preventDefault()
             }
           } else {
             // query shortcuts
             if (keyCode == keys.enter) {
-              module.verbose("Enter key pressed, executing query");
-              module.query();
-              module.set.buttonPressed();
-              $prompt.one("keyup", module.remove.buttonFocus);
+              module.verbose('Enter key pressed, executing query')
+              module.query()
+              module.set.buttonPressed()
+              $prompt.one('keyup', module.remove.buttonFocus)
             }
           }
         },
 
         setup: {
           api: function (searchTerm, callback) {
-            var apiSettings = {
-                debug: settings.debug,
-                on: false,
-                cache: settings.cache,
-                action: "search",
-                urlData: {
-                  query: searchTerm,
-                },
-                onSuccess: function (response) {
-                  module.parse.response.call(element, response, searchTerm);
-                  callback();
-                },
-                onFailure: function () {
-                  module.displayMessage(error.serverError);
-                  callback();
-                },
-                onAbort: function (response) {},
-                onError: module.error,
+            const apiSettings = {
+              debug: settings.debug,
+              on: false,
+              cache: settings.cache,
+              action: 'search',
+              urlData: {
+                query: searchTerm
               },
-              searchHTML;
-            $.extend(true, apiSettings, settings.apiSettings);
-            module.verbose("Setting up API request", apiSettings);
-            $module.api(apiSettings);
-          },
+              onSuccess: function (response) {
+                module.parse.response.call(element, response, searchTerm)
+                callback()
+              },
+              onFailure: function () {
+                module.displayMessage(error.serverError)
+                callback()
+              },
+              onAbort: function (response) {},
+              onError: module.error
+            }
+            let searchHTML
+            $.extend(true, apiSettings, settings.apiSettings)
+            module.verbose('Setting up API request', apiSettings)
+            $module.api(apiSettings)
+          }
         },
 
         can: {
           useAPI: function () {
-            return $.fn.api !== undefined;
+            return $.fn.api !== undefined
           },
           show: function () {
             return (
               module.is.focused() && !module.is.visible() && !module.is.empty()
-            );
+            )
           },
           transition: function () {
             return (
               settings.transition &&
               $.fn.transition !== undefined &&
-              $module.transition("is supported")
-            );
-          },
+              $module.transition('is supported')
+            )
+          }
         },
 
         is: {
           animating: function () {
-            return $results.hasClass(className.animating);
+            return $results.hasClass(className.animating)
           },
           hidden: function () {
-            return $results.hasClass(className.hidden);
+            return $results.hasClass(className.hidden)
           },
           inMessage: function (event) {
             if (!event.target) {
-              return;
+              return
             }
-            var $target = $(event.target),
-              isInDOM = $.contains(document.documentElement, event.target);
-            return isInDOM && $target.closest(selector.message).length > 0;
+            const $target = $(event.target)
+            const isInDOM = $.contains(document.documentElement, event.target)
+            return isInDOM && $target.closest(selector.message).length > 0
           },
           empty: function () {
-            return $results.html() === "";
+            return $results.html() === ''
           },
           visible: function () {
-            return $results.filter(":visible").length > 0;
+            return $results.filter(':visible').length > 0
           },
           focused: function () {
-            return $prompt.filter(":focus").length > 0;
-          },
+            return $prompt.filter(':focus').length > 0
+          }
         },
 
         get: {
           settings: function () {
             if ($.isPlainObject(parameters) && parameters.searchFullText) {
-              settings.fullTextSearch = parameters.searchFullText;
-              module.error(settings.error.oldSearchSyntax, element);
+              settings.fullTextSearch = parameters.searchFullText
+              module.error(settings.error.oldSearchSyntax, element)
             }
           },
           inputEvent: function () {
-            var prompt = $prompt[0],
-              inputEvent =
+            const prompt = $prompt[0]
+            const inputEvent =
                 prompt !== undefined && prompt.oninput !== undefined
-                  ? "input"
+                  ? 'input'
                   : prompt !== undefined &&
                       prompt.onpropertychange !== undefined
-                    ? "propertychange"
-                    : "keyup";
-            return inputEvent;
+                    ? 'propertychange'
+                    : 'keyup'
+            return inputEvent
           },
           value: function () {
-            return $prompt.val();
+            return $prompt.val()
           },
           results: function () {
-            var results = $module.data(metadata.results);
-            return results;
+            const results = $module.data(metadata.results)
+            return results
           },
           result: function (value, results) {
-            var lookupFields = ["title", "id"],
-              result = false;
-            value = value !== undefined ? value : module.get.value();
-            results = results !== undefined ? results : module.get.results();
-            if (settings.type === "category") {
-              module.debug("Finding result that matches", value);
+            const lookupFields = ['title', 'id']
+            let result = false
+            value = value !== undefined ? value : module.get.value()
+            results = results !== undefined ? results : module.get.results()
+            if (settings.type === 'category') {
+              module.debug('Finding result that matches', value)
               $.each(results, function (index, category) {
                 if ($.isArray(category.results)) {
                   result = module.search.object(
                     value,
                     category.results,
-                    lookupFields,
-                  )[0];
+                    lookupFields
+                  )[0]
                   // don't continue searching if a result is found
                   if (result) {
-                    return false;
+                    return false
                   }
                 }
-              });
+              })
             } else {
-              module.debug("Finding result in results object", value);
-              result = module.search.object(value, results, lookupFields)[0];
+              module.debug('Finding result in results object', value)
+              result = module.search.object(value, results, lookupFields)[0]
             }
-            return result || false;
-          },
+            return result || false
+          }
         },
 
         select: {
           firstResult: function () {
-            module.verbose("Selecting first result");
-            $result.first().addClass(className.active);
-          },
+            module.verbose('Selecting first result')
+            $result.first().addClass(className.active)
+          }
         },
 
         set: {
           focus: function () {
-            $module.addClass(className.focus);
+            $module.addClass(className.focus)
           },
           loading: function () {
-            $module.addClass(className.loading);
+            $module.addClass(className.loading)
           },
           value: function (value) {
-            module.verbose("Setting search input value", value);
-            $prompt.val(value);
+            module.verbose('Setting search input value', value)
+            $prompt.val(value)
           },
           type: function (type) {
-            type = type || settings.type;
-            if (settings.type == "category") {
-              $module.addClass(settings.type);
+            type = type || settings.type
+            if (settings.type == 'category') {
+              $module.addClass(settings.type)
             }
           },
           buttonPressed: function () {
-            $searchButton.addClass(className.pressed);
-          },
+            $searchButton.addClass(className.pressed)
+          }
         },
 
         remove: {
           loading: function () {
-            $module.removeClass(className.loading);
+            $module.removeClass(className.loading)
           },
           focus: function () {
-            $module.removeClass(className.focus);
+            $module.removeClass(className.focus)
           },
           buttonPressed: function () {
-            $searchButton.removeClass(className.pressed);
-          },
+            $searchButton.removeClass(className.pressed)
+          }
         },
 
         query: function (callback) {
-          callback = $.isFunction(callback) ? callback : function () {};
-          var searchTerm = module.get.value(),
-            cache = module.read.cache(searchTerm);
-          callback = callback || function () {};
+          callback = $.isFunction(callback) ? callback : function () {}
+          const searchTerm = module.get.value()
+          const cache = module.read.cache(searchTerm)
+          callback = callback || function () {}
           if (module.has.minimumCharacters()) {
             if (cache) {
-              module.debug("Reading result from cache", searchTerm);
-              module.save.results(cache.results);
-              module.addResults(cache.html);
-              module.inject.id(cache.results);
-              callback();
+              module.debug('Reading result from cache', searchTerm)
+              module.save.results(cache.results)
+              module.addResults(cache.html)
+              module.inject.id(cache.results)
+              callback()
             } else {
-              module.debug("Querying for", searchTerm);
+              module.debug('Querying for', searchTerm)
               if (
                 $.isPlainObject(settings.source) ||
                 $.isArray(settings.source)
               ) {
-                module.search.local(searchTerm);
-                callback();
+                module.search.local(searchTerm)
+                callback()
               } else if (module.can.useAPI()) {
-                module.search.remote(searchTerm, callback);
+                module.search.remote(searchTerm, callback)
               } else {
-                module.error(error.source);
-                callback();
+                module.error(error.source)
+                callback()
               }
             }
-            settings.onSearchQuery.call(element, searchTerm);
+            settings.onSearchQuery.call(element, searchTerm)
           } else {
-            module.hideResults();
+            module.hideResults()
           }
         },
 
         search: {
           local: function (searchTerm) {
-            var results = module.search.object(searchTerm, settings.content),
-              searchHTML;
-            module.set.loading();
-            module.save.results(results);
-            module.debug("Returned full local search results", results);
+            let results = module.search.object(searchTerm, settings.content)
+            let searchHTML
+            module.set.loading()
+            module.save.results(results)
+            module.debug('Returned full local search results', results)
             if (settings.maxResults > 0) {
-              module.debug("Using specified max results", results);
-              results = results.slice(0, settings.maxResults);
+              module.debug('Using specified max results', results)
+              results = results.slice(0, settings.maxResults)
             }
-            if (settings.type == "category") {
-              results = module.create.categoryResults(results);
+            if (settings.type == 'category') {
+              results = module.create.categoryResults(results)
             }
             searchHTML = module.generateResults({
-              results: results,
-            });
-            module.remove.loading();
-            module.addResults(searchHTML);
-            module.inject.id(results);
+              results
+            })
+            module.remove.loading()
+            module.addResults(searchHTML)
+            module.inject.id(results)
             module.write.cache(searchTerm, {
               html: searchHTML,
-              results: results,
-            });
+              results
+            })
           },
           remote: function (searchTerm, callback) {
-            callback = $.isFunction(callback) ? callback : function () {};
-            if ($module.api("is loading")) {
-              $module.api("abort");
+            callback = $.isFunction(callback) ? callback : function () {}
+            if ($module.api('is loading')) {
+              $module.api('abort')
             }
-            module.setup.api(searchTerm, callback);
-            $module.api("query");
+            module.setup.api(searchTerm, callback)
+            $module.api('query')
           },
           object: function (searchTerm, source, searchFields) {
-            var results = [],
-              exactResults = [],
-              fuzzyResults = [],
-              searchExp = searchTerm.toString().replace(regExp.escape, "\\$&"),
-              matchRegExp = new RegExp(regExp.beginsWith + searchExp, "i"),
-              // avoid duplicates when pushing results
-              addResult = function (array, result) {
-                var notResult = $.inArray(result, results) == -1,
-                  notFuzzyResult = $.inArray(result, fuzzyResults) == -1,
-                  notExactResults = $.inArray(result, exactResults) == -1;
-                if (notResult && notFuzzyResult && notExactResults) {
-                  array.push(result);
-                }
-              };
-            source = source || settings.source;
+            const results = []
+            const exactResults = []
+            const fuzzyResults = []
+            const searchExp = searchTerm.toString().replace(regExp.escape, '\\$&')
+            const matchRegExp = new RegExp(regExp.beginsWith + searchExp, 'i')
+            // avoid duplicates when pushing results
+            const addResult = function (array, result) {
+              const notResult = $.inArray(result, results) == -1
+              const notFuzzyResult = $.inArray(result, fuzzyResults) == -1
+              const notExactResults = $.inArray(result, exactResults) == -1
+              if (notResult && notFuzzyResult && notExactResults) {
+                array.push(result)
+              }
+            }
+            source = source || settings.source
             searchFields =
-              searchFields !== undefined ? searchFields : settings.searchFields;
+              searchFields !== undefined ? searchFields : settings.searchFields
 
             // search fields should be array to loop correctly
             if (!$.isArray(searchFields)) {
-              searchFields = [searchFields];
+              searchFields = [searchFields]
             }
 
             // exit conditions if no source
             if (source === undefined || source === false) {
-              module.error(error.source);
-              return [];
+              module.error(error.source)
+              return []
             }
             // iterate through search fields looking for matches
             $.each(searchFields, function (index, field) {
               $.each(source, function (label, content) {
-                var fieldExists = typeof content[field] == "string";
+                const fieldExists = typeof content[field] === 'string'
                 if (fieldExists) {
                   if (content[field].search(matchRegExp) !== -1) {
                     // content starts with value (first in results)
-                    addResult(results, content);
+                    addResult(results, content)
                   } else if (
-                    settings.fullTextSearch === "exact" &&
+                    settings.fullTextSearch === 'exact' &&
                     module.exactSearch(searchTerm, content[field])
                   ) {
                     // content fuzzy matches (last in results)
-                    addResult(exactResults, content);
+                    addResult(exactResults, content)
                   } else if (
                     settings.fullTextSearch == true &&
                     module.fuzzySearch(searchTerm, content[field])
                   ) {
                     // content fuzzy matches (last in results)
-                    addResult(fuzzyResults, content);
+                    addResult(fuzzyResults, content)
                   }
                 }
-              });
-            });
-            $.merge(exactResults, fuzzyResults);
-            $.merge(results, exactResults);
-            return results;
-          },
+              })
+            })
+            $.merge(exactResults, fuzzyResults)
+            $.merge(results, exactResults)
+            return results
+          }
         },
         exactSearch: function (query, term) {
-          query = query.toLowerCase();
-          term = term.toLowerCase();
+          query = query.toLowerCase()
+          term = term.toLowerCase()
           if (term.indexOf(query) > -1) {
-            return true;
+            return true
           }
-          return false;
+          return false
         },
         fuzzySearch: function (query, term) {
-          var termLength = term.length,
-            queryLength = query.length;
-          if (typeof query !== "string") {
-            return false;
+          const termLength = term.length
+          const queryLength = query.length
+          if (typeof query !== 'string') {
+            return false
           }
-          query = query.toLowerCase();
-          term = term.toLowerCase();
+          query = query.toLowerCase()
+          term = term.toLowerCase()
           if (queryLength > termLength) {
-            return false;
+            return false
           }
           if (queryLength === termLength) {
-            return query === term;
+            return query === term
           }
           search: for (
-            var characterIndex = 0, nextCharacterIndex = 0;
+            let characterIndex = 0, nextCharacterIndex = 0;
             characterIndex < queryLength;
             characterIndex++
           ) {
-            var queryCharacter = query.charCodeAt(characterIndex);
+            const queryCharacter = query.charCodeAt(characterIndex)
             while (nextCharacterIndex < termLength) {
               if (term.charCodeAt(nextCharacterIndex++) === queryCharacter) {
-                continue search;
+                continue search
               }
             }
-            return false;
+            return false
           }
-          return true;
+          return true
         },
 
         parse: {
           response: function (response, searchTerm) {
-            var searchHTML = module.generateResults(response);
-            module.verbose("Parsing server response", response);
+            const searchHTML = module.generateResults(response)
+            module.verbose('Parsing server response', response)
             if (response !== undefined) {
               if (
                 searchTerm !== undefined &&
                 response[fields.results] !== undefined
               ) {
-                module.addResults(searchHTML);
-                module.inject.id(response[fields.results]);
+                module.addResults(searchHTML)
+                module.inject.id(response[fields.results])
                 module.write.cache(searchTerm, {
                   html: searchHTML,
-                  results: response[fields.results],
-                });
-                module.save.results(response[fields.results]);
+                  results: response[fields.results]
+                })
+                module.save.results(response[fields.results])
               }
             }
-          },
+          }
         },
 
         cancel: {
           query: function () {
             if (module.can.useAPI()) {
-              $module.api("abort");
+              $module.api('abort')
             }
-          },
+          }
         },
 
         has: {
           minimumCharacters: function () {
-            var searchTerm = module.get.value(),
-              numCharacters = searchTerm.length;
-            return numCharacters >= settings.minCharacters;
+            const searchTerm = module.get.value()
+            const numCharacters = searchTerm.length
+            return numCharacters >= settings.minCharacters
           },
           results: function () {
             if ($results.length === 0) {
-              return false;
+              return false
             }
-            var html = $results.html();
-            return html != "";
-          },
+            const html = $results.html()
+            return html != ''
+          }
         },
 
         clear: {
           cache: function (value) {
-            var cache = $module.data(metadata.cache);
+            const cache = $module.data(metadata.cache)
             if (!value) {
-              module.debug("Clearing cache", value);
-              $module.removeData(metadata.cache);
+              module.debug('Clearing cache', value)
+              $module.removeData(metadata.cache)
             } else if (value && cache && cache[value]) {
-              module.debug("Removing value from cache", value);
-              delete cache[value];
-              $module.data(metadata.cache, cache);
+              module.debug('Removing value from cache', value)
+              delete cache[value]
+              $module.data(metadata.cache, cache)
             }
-          },
+          }
         },
 
         read: {
           cache: function (name) {
-            var cache = $module.data(metadata.cache);
+            const cache = $module.data(metadata.cache)
             if (settings.cache) {
               module.verbose(
-                "Checking cache for generated html for query",
-                name,
-              );
-              return typeof cache == "object" && cache[name] !== undefined
+                'Checking cache for generated html for query',
+                name
+              )
+              return typeof cache === 'object' && cache[name] !== undefined
                 ? cache[name]
-                : false;
+                : false
             }
-            return false;
-          },
+            return false
+          }
         },
 
         create: {
           categoryResults: function (results) {
-            var categoryResults = {};
+            const categoryResults = {}
             $.each(results, function (index, result) {
               if (!result.category) {
-                return;
+                return
               }
               if (categoryResults[result.category] === undefined) {
                 module.verbose(
-                  "Creating new category of results",
-                  result.category,
-                );
+                  'Creating new category of results',
+                  result.category
+                )
                 categoryResults[result.category] = {
                   name: result.category,
-                  results: [result],
-                };
+                  results: [result]
+                }
               } else {
-                categoryResults[result.category].results.push(result);
+                categoryResults[result.category].results.push(result)
               }
-            });
-            return categoryResults;
+            })
+            return categoryResults
           },
           id: function (resultIndex, categoryIndex) {
-            var resultID = resultIndex + 1, // not zero indexed
-              categoryID = categoryIndex + 1,
-              firstCharCode,
-              letterID,
-              id;
+            const resultID = resultIndex + 1 // not zero indexed
+            const categoryID = categoryIndex + 1
+            let firstCharCode
+            let letterID
+            let id
             if (categoryIndex !== undefined) {
               // start char code for "A"
-              letterID = String.fromCharCode(97 + categoryIndex);
-              id = letterID + resultID;
-              module.verbose("Creating category result id", id);
+              letterID = String.fromCharCode(97 + categoryIndex)
+              id = letterID + resultID
+              module.verbose('Creating category result id', id)
             } else {
-              id = resultID;
-              module.verbose("Creating result id", id);
+              id = resultID
+              module.verbose('Creating result id', id)
             }
-            return id;
+            return id
           },
           results: function () {
             if ($results.length === 0) {
-              $results = $("<div />")
+              $results = $('<div />')
                 .addClass(className.results)
-                .appendTo($module);
+                .appendTo($module)
             }
-          },
+          }
         },
 
         inject: {
           result: function (result, resultIndex, categoryIndex) {
-            module.verbose("Injecting result into results");
-            var $selectedResult =
+            module.verbose('Injecting result into results')
+            const $selectedResult =
               categoryIndex !== undefined
                 ? $results
-                    .children()
-                    .eq(categoryIndex)
-                    .children(selector.results)
-                    .first()
-                    .children(selector.result)
-                    .eq(resultIndex)
-                : $results.children(selector.result).eq(resultIndex);
-            module.verbose("Injecting results metadata", $selectedResult);
-            $selectedResult.data(metadata.result, result);
+                  .children()
+                  .eq(categoryIndex)
+                  .children(selector.results)
+                  .first()
+                  .children(selector.result)
+                  .eq(resultIndex)
+                : $results.children(selector.result).eq(resultIndex)
+            module.verbose('Injecting results metadata', $selectedResult)
+            $selectedResult.data(metadata.result, result)
           },
           id: function (results) {
-            module.debug("Injecting unique ids into results");
-            var // since results may be object, we must use counters
-              categoryIndex = 0,
-              resultIndex = 0;
-            if (settings.type === "category") {
+            module.debug('Injecting unique ids into results')
+            let // since results may be object, we must use counters
+              categoryIndex = 0
+            let resultIndex = 0
+            if (settings.type === 'category') {
               // iterate through each category result
               $.each(results, function (index, category) {
-                resultIndex = 0;
+                resultIndex = 0
                 $.each(category.results, function (index, value) {
-                  var result = category.results[index];
+                  const result = category.results[index]
                   if (result.id === undefined) {
-                    result.id = module.create.id(resultIndex, categoryIndex);
+                    result.id = module.create.id(resultIndex, categoryIndex)
                   }
-                  module.inject.result(result, resultIndex, categoryIndex);
-                  resultIndex++;
-                });
-                categoryIndex++;
-              });
+                  module.inject.result(result, resultIndex, categoryIndex)
+                  resultIndex++
+                })
+                categoryIndex++
+              })
             } else {
               // top level
               $.each(results, function (index, value) {
-                var result = results[index];
+                const result = results[index]
                 if (result.id === undefined) {
-                  result.id = module.create.id(resultIndex);
+                  result.id = module.create.id(resultIndex)
                 }
-                module.inject.result(result, resultIndex);
-                resultIndex++;
-              });
+                module.inject.result(result, resultIndex)
+                resultIndex++
+              })
             }
-            return results;
-          },
+            return results
+          }
         },
 
         save: {
           results: function (results) {
             module.verbose(
-              "Saving current search results to metadata",
-              results,
-            );
-            $module.data(metadata.results, results);
-          },
+              'Saving current search results to metadata',
+              results
+            )
+            $module.data(metadata.results, results)
+          }
         },
 
         write: {
           cache: function (name, value) {
-            var cache =
+            const cache =
               $module.data(metadata.cache) !== undefined
                 ? $module.data(metadata.cache)
-                : {};
+                : {}
             if (settings.cache) {
-              module.verbose("Writing generated html to cache", name, value);
-              cache[name] = value;
-              $module.data(metadata.cache, cache);
+              module.verbose('Writing generated html to cache', name, value)
+              cache[name] = value
+              $module.data(metadata.cache, cache)
             }
-          },
+          }
         },
 
         addResults: function (html) {
           if ($.isFunction(settings.onResultsAdd)) {
             if (settings.onResultsAdd.call($results, html) === false) {
-              module.debug("onResultsAdd callback cancelled default action");
-              return false;
+              module.debug('onResultsAdd callback cancelled default action')
+              return false
             }
           }
           if (html) {
-            $results.html(html);
-            module.refreshResults();
+            $results.html(html)
+            module.refreshResults()
             if (settings.selectFirstResult) {
-              module.select.firstResult();
+              module.select.firstResult()
             }
-            module.showResults();
+            module.showResults()
           } else {
             module.hideResults(function () {
-              $results.empty();
-            });
+              $results.empty()
+            })
           }
         },
 
         showResults: function (callback) {
-          callback = $.isFunction(callback) ? callback : function () {};
+          callback = $.isFunction(callback) ? callback : function () {}
           if (resultsDismissed) {
-            return;
+            return
           }
           if (!module.is.visible() && module.has.results()) {
             if (module.can.transition()) {
-              module.debug("Showing results with css animations");
+              module.debug('Showing results with css animations')
               $results.transition({
-                animation: settings.transition + " in",
+                animation: settings.transition + ' in',
                 debug: settings.debug,
                 verbose: settings.verbose,
                 duration: settings.duration,
                 onComplete: function () {
-                  callback();
+                  callback()
                 },
-                queue: true,
-              });
+                queue: true
+              })
             } else {
-              module.debug("Showing results with javascript");
-              $results.stop().fadeIn(settings.duration, settings.easing);
+              module.debug('Showing results with javascript')
+              $results.stop().fadeIn(settings.duration, settings.easing)
             }
-            settings.onResultsOpen.call($results);
+            settings.onResultsOpen.call($results)
           }
         },
         hideResults: function (callback) {
-          callback = $.isFunction(callback) ? callback : function () {};
+          callback = $.isFunction(callback) ? callback : function () {}
           if (module.is.visible()) {
             if (module.can.transition()) {
-              module.debug("Hiding results with css animations");
+              module.debug('Hiding results with css animations')
               $results.transition({
-                animation: settings.transition + " out",
+                animation: settings.transition + ' out',
                 debug: settings.debug,
                 verbose: settings.verbose,
                 duration: settings.duration,
                 onComplete: function () {
-                  callback();
+                  callback()
                 },
-                queue: true,
-              });
+                queue: true
+              })
             } else {
-              module.debug("Hiding results with javascript");
-              $results.stop().fadeOut(settings.duration, settings.easing);
+              module.debug('Hiding results with javascript')
+              $results.stop().fadeOut(settings.duration, settings.easing)
             }
-            settings.onResultsClose.call($results);
+            settings.onResultsClose.call($results)
           }
         },
 
         generateResults: function (response) {
-          module.debug("Generating html from response", response);
-          var template = settings.templates[settings.type],
-            isProperObject =
+          module.debug('Generating html from response', response)
+          const template = settings.templates[settings.type]
+          const isProperObject =
               $.isPlainObject(response[fields.results]) &&
-              !$.isEmptyObject(response[fields.results]),
-            isProperArray =
+              !$.isEmptyObject(response[fields.results])
+          const isProperArray =
               $.isArray(response[fields.results]) &&
-              response[fields.results].length > 0,
-            html = "";
+              response[fields.results].length > 0
+          let html = ''
           if (isProperObject || isProperArray) {
             if (settings.maxResults > 0) {
               if (isProperObject) {
-                if (settings.type == "standard") {
-                  module.error(error.maxResults);
+                if (settings.type == 'standard') {
+                  module.error(error.maxResults)
                 }
               } else {
                 response[fields.results] = response[fields.results].slice(
                   0,
-                  settings.maxResults,
-                );
+                  settings.maxResults
+                )
               }
             }
             if ($.isFunction(template)) {
-              html = template(response, fields);
+              html = template(response, fields)
             } else {
-              module.error(error.noTemplate, false);
+              module.error(error.noTemplate, false)
             }
           } else if (settings.showNoResults) {
-            html = module.displayMessage(error.noResults, "empty");
+            html = module.displayMessage(error.noResults, 'empty')
           }
-          settings.onResults.call(element, response);
-          return html;
+          settings.onResults.call(element, response)
+          return html
         },
 
         displayMessage: function (text, type) {
-          type = type || "standard";
-          module.debug("Displaying message", text, type);
-          module.addResults(settings.templates.message(text, type));
-          return settings.templates.message(text, type);
+          type = type || 'standard'
+          module.debug('Displaying message', text, type)
+          module.addResults(settings.templates.message(text, type))
+          return settings.templates.message(text, type)
         },
 
         setting: function (name, value) {
           if ($.isPlainObject(name)) {
-            $.extend(true, settings, name);
+            $.extend(true, settings, name)
           } else if (value !== undefined) {
-            settings[name] = value;
+            settings[name] = value
           } else {
-            return settings[name];
+            return settings[name]
           }
         },
         internal: function (name, value) {
           if ($.isPlainObject(name)) {
-            $.extend(true, module, name);
+            $.extend(true, module, name)
           } else if (value !== undefined) {
-            module[name] = value;
+            module[name] = value
           } else {
-            return module[name];
+            return module[name]
           }
         },
         debug: function () {
           if (!settings.silent && settings.debug) {
             if (settings.performance) {
-              module.performance.log(arguments);
+              module.performance.log(arguments)
             } else {
               module.debug = Function.prototype.bind.call(
                 console.info,
                 console,
-                settings.name + ":",
-              );
-              module.debug.apply(console, arguments);
+                settings.name + ':'
+              )
+              module.debug.apply(console, arguments)
             }
           }
         },
         verbose: function () {
           if (!settings.silent && settings.verbose && settings.debug) {
             if (settings.performance) {
-              module.performance.log(arguments);
+              module.performance.log(arguments)
             } else {
               module.verbose = Function.prototype.bind.call(
                 console.info,
                 console,
-                settings.name + ":",
-              );
-              module.verbose.apply(console, arguments);
+                settings.name + ':'
+              )
+              module.verbose.apply(console, arguments)
             }
           }
         },
@@ -1004,135 +1004,135 @@
             module.error = Function.prototype.bind.call(
               console.error,
               console,
-              settings.name + ":",
-            );
-            module.error.apply(console, arguments);
+              settings.name + ':'
+            )
+            module.error.apply(console, arguments)
           }
         },
         performance: {
           log: function (message) {
-            var currentTime, executionTime, previousTime;
+            let currentTime, executionTime, previousTime
             if (settings.performance) {
-              currentTime = new Date().getTime();
-              previousTime = time || currentTime;
-              executionTime = currentTime - previousTime;
-              time = currentTime;
+              currentTime = new Date().getTime()
+              previousTime = time || currentTime
+              executionTime = currentTime - previousTime
+              time = currentTime
               performance.push({
                 Name: message[0],
-                Arguments: [].slice.call(message, 1) || "",
+                Arguments: [].slice.call(message, 1) || '',
                 Element: element,
-                "Execution Time": executionTime,
-              });
+                'Execution Time': executionTime
+              })
             }
-            clearTimeout(module.performance.timer);
+            clearTimeout(module.performance.timer)
             module.performance.timer = setTimeout(
               module.performance.display,
-              500,
-            );
+              500
+            )
           },
           display: function () {
-            var title = settings.name + ":",
-              totalTime = 0;
-            time = false;
-            clearTimeout(module.performance.timer);
+            let title = settings.name + ':'
+            let totalTime = 0
+            time = false
+            clearTimeout(module.performance.timer)
             $.each(performance, function (index, data) {
-              totalTime += data["Execution Time"];
-            });
-            title += " " + totalTime + "ms";
+              totalTime += data['Execution Time']
+            })
+            title += ' ' + totalTime + 'ms'
             if (moduleSelector) {
-              title += " '" + moduleSelector + "'";
+              title += " '" + moduleSelector + "'"
             }
             if ($allModules.length > 1) {
-              title += " " + "(" + $allModules.length + ")";
+              title += ' ' + '(' + $allModules.length + ')'
             }
             if (
               (console.group !== undefined || console.table !== undefined) &&
               performance.length > 0
             ) {
-              console.groupCollapsed(title);
+              console.groupCollapsed(title)
               if (console.table) {
-                console.table(performance);
+                console.table(performance)
               } else {
                 $.each(performance, function (index, data) {
                   console.log(
-                    data["Name"] + ": " + data["Execution Time"] + "ms",
-                  );
-                });
+                    data.Name + ': ' + data['Execution Time'] + 'ms'
+                  )
+                })
               }
-              console.groupEnd();
+              console.groupEnd()
             }
-            performance = [];
-          },
+            performance = []
+          }
         },
         invoke: function (query, passedArguments, context) {
-          var object = instance,
-            maxDepth,
-            found,
-            response;
-          passedArguments = passedArguments || queryArguments;
-          context = element || context;
-          if (typeof query == "string" && object !== undefined) {
-            query = query.split(/[\. ]/);
-            maxDepth = query.length - 1;
+          let object = instance
+          let maxDepth
+          let found
+          let response
+          passedArguments = passedArguments || queryArguments
+          context = element || context
+          if (typeof query === 'string' && object !== undefined) {
+            query = query.split(/[\. ]/)
+            maxDepth = query.length - 1
             $.each(query, function (depth, value) {
-              var camelCaseValue =
+              const camelCaseValue =
                 depth != maxDepth
                   ? value +
                     query[depth + 1].charAt(0).toUpperCase() +
                     query[depth + 1].slice(1)
-                  : query;
+                  : query
               if (
                 $.isPlainObject(object[camelCaseValue]) &&
                 depth != maxDepth
               ) {
-                object = object[camelCaseValue];
+                object = object[camelCaseValue]
               } else if (object[camelCaseValue] !== undefined) {
-                found = object[camelCaseValue];
-                return false;
+                found = object[camelCaseValue]
+                return false
               } else if ($.isPlainObject(object[value]) && depth != maxDepth) {
-                object = object[value];
+                object = object[value]
               } else if (object[value] !== undefined) {
-                found = object[value];
-                return false;
+                found = object[value]
+                return false
               } else {
-                return false;
+                return false
               }
-            });
+            })
           }
           if ($.isFunction(found)) {
-            response = found.apply(context, passedArguments);
+            response = found.apply(context, passedArguments)
           } else if (found !== undefined) {
-            response = found;
+            response = found
           }
           if ($.isArray(returnedValue)) {
-            returnedValue.push(response);
+            returnedValue.push(response)
           } else if (returnedValue !== undefined) {
-            returnedValue = [returnedValue, response];
+            returnedValue = [returnedValue, response]
           } else if (response !== undefined) {
-            returnedValue = response;
+            returnedValue = response
           }
-          return found;
-        },
-      };
+          return found
+        }
+      }
       if (methodInvoked) {
         if (instance === undefined) {
-          module.initialize();
+          module.initialize()
         }
-        module.invoke(query);
+        module.invoke(query)
       } else {
         if (instance !== undefined) {
-          instance.invoke("destroy");
+          instance.invoke('destroy')
         }
-        module.initialize();
+        module.initialize()
       }
-    });
+    })
 
-    return returnedValue !== undefined ? returnedValue : this;
-  };
+    return returnedValue !== undefined ? returnedValue : this
+  }
 
   $.fn.search.settings = {
-    name: "Search",
-    namespace: "search",
+    name: 'Search',
+    namespace: 'search',
 
     silent: false,
     debug: false,
@@ -1140,7 +1140,7 @@
     performance: true,
 
     // template to use (specified in settings.templates)
-    type: "standard",
+    type: 'standard',
 
     // minimum characters required to search
     minCharacters: 1,
@@ -1158,13 +1158,13 @@
     searchOnFocus: true,
 
     // fields to search
-    searchFields: ["title", "description"],
+    searchFields: ['title', 'description'],
 
     // field to display in standard results template
-    displayField: "",
+    displayField: '',
 
     // search anywhere in value (set to 'exact' to require exact matches
-    fullTextSearch: "exact",
+    fullTextSearch: 'exact',
 
     // whether to add events to prompt automatically
     automatic: true,
@@ -1185,9 +1185,9 @@
     showNoResults: true,
 
     // transition settings
-    transition: "scale",
+    transition: 'scale',
     duration: 200,
-    easing: "easeOutExpo",
+    easing: 'easeOutExpo',
 
     // callbacks
     onSelect: false,
@@ -1200,109 +1200,109 @@
     onResultsClose: function () {},
 
     className: {
-      animating: "animating",
-      active: "active",
-      empty: "empty",
-      focus: "focus",
-      hidden: "hidden",
-      loading: "loading",
-      results: "results",
-      pressed: "down",
+      animating: 'animating',
+      active: 'active',
+      empty: 'empty',
+      focus: 'focus',
+      hidden: 'hidden',
+      loading: 'loading',
+      results: 'results',
+      pressed: 'down'
     },
 
     error: {
       source:
-        "Cannot search. No source used, and Semantic API module was not included",
-      noResults: "Your search returned no results",
-      logging: "Error in debug logging, exiting.",
-      noEndpoint: "No search endpoint was specified",
-      noTemplate: "A valid template name was not specified.",
+        'Cannot search. No source used, and Semantic API module was not included',
+      noResults: 'Your search returned no results',
+      logging: 'Error in debug logging, exiting.',
+      noEndpoint: 'No search endpoint was specified',
+      noTemplate: 'A valid template name was not specified.',
       oldSearchSyntax:
-        "searchFullText setting has been renamed fullTextSearch for consistency, please adjust your settings.",
-      serverError: "There was an issue querying the server.",
-      maxResults: "Results must be an array to use maxResults setting",
-      method: "The method you called is not defined.",
+        'searchFullText setting has been renamed fullTextSearch for consistency, please adjust your settings.',
+      serverError: 'There was an issue querying the server.',
+      maxResults: 'Results must be an array to use maxResults setting',
+      method: 'The method you called is not defined.'
     },
 
     metadata: {
-      cache: "cache",
-      results: "results",
-      result: "result",
+      cache: 'cache',
+      results: 'results',
+      result: 'result'
     },
 
     regExp: {
       escape: /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g,
-      beginsWith: "(?:s|^)",
+      beginsWith: '(?:s|^)'
     },
 
     // maps api response attributes to internal representation
     fields: {
-      categories: "results", // array of categories (category view)
-      categoryName: "name", // name of category (category view)
-      categoryResults: "results", // array of results (category view)
-      description: "description", // result description
-      image: "image", // result image
-      price: "price", // result price
-      results: "results", // array of results (standard)
-      title: "title", // result title
-      url: "url", // result url
-      action: "action", // "view more" object name
-      actionText: "text", // "view more" text
-      actionURL: "url", // "view more" url
+      categories: 'results', // array of categories (category view)
+      categoryName: 'name', // name of category (category view)
+      categoryResults: 'results', // array of results (category view)
+      description: 'description', // result description
+      image: 'image', // result image
+      price: 'price', // result price
+      results: 'results', // array of results (standard)
+      title: 'title', // result title
+      url: 'url', // result url
+      action: 'action', // "view more" object name
+      actionText: 'text', // "view more" text
+      actionURL: 'url' // "view more" url
     },
 
     selector: {
-      prompt: ".prompt",
-      searchButton: ".search.button",
-      results: ".results",
-      message: ".results > .message",
-      category: ".category",
-      result: ".result",
-      title: ".title, .name",
+      prompt: '.prompt',
+      searchButton: '.search.button',
+      results: '.results',
+      message: '.results > .message',
+      category: '.category',
+      result: '.result',
+      title: '.title, .name'
     },
 
     templates: {
       escape: function (string) {
-        var badChars = /[&<>"'`]/g,
-          shouldEscape = /[&<>"'`]/,
-          escape = {
-            "&": "&amp;",
-            "<": "&lt;",
-            ">": "&gt;",
-            '"': "&quot;",
-            "'": "&#x27;",
-            "`": "&#x60;",
-          },
-          escapedChar = function (chr) {
-            return escape[chr];
-          };
-        if (shouldEscape.test(string)) {
-          return string.replace(badChars, escapedChar);
+        const badChars = /[&<>"'`]/g
+        const shouldEscape = /[&<>"'`]/
+        const escape = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#x27;',
+          '`': '&#x60;'
         }
-        return string;
+        const escapedChar = function (chr) {
+          return escape[chr]
+        }
+        if (shouldEscape.test(string)) {
+          return string.replace(badChars, escapedChar)
+        }
+        return string
       },
       message: function (message, type) {
-        var html = "";
+        let html = ''
         if (message !== undefined && type !== undefined) {
-          html += "" + '<div class="message ' + type + '">';
+          html += '' + '<div class="message ' + type + '">'
           // message type
-          if (type == "empty") {
+          if (type == 'empty') {
             html +=
-              "" +
+              '' +
               '<div class="header">No Results</div class="header">' +
               '<div class="description">' +
               message +
-              '</div class="description">';
+              '</div class="description">'
           } else {
-            html += ' <div class="description">' + message + "</div>";
+            html += ' <div class="description">' + message + '</div>'
           }
-          html += "</div>";
+          html += '</div>'
         }
-        return html;
+        return html
       },
       category: function (response, fields) {
-        var html = "",
-          escape = $.fn.search.settings.templates.escape;
+        let html = ''
+        const escape = $.fn.search.settings.templates.escape
         if (response[fields.categoryResults] !== undefined) {
           // each category
           $.each(response[fields.categoryResults], function (index, category) {
@@ -1310,117 +1310,117 @@
               category[fields.results] !== undefined &&
               category.results.length > 0
             ) {
-              html += '<div class="category">';
+              html += '<div class="category">'
 
               if (category[fields.categoryName] !== undefined) {
                 html +=
                   '<div class="name">' +
                   category[fields.categoryName] +
-                  "</div>";
+                  '</div>'
               }
 
               // each item inside category
-              html += '<div class="results">';
+              html += '<div class="results">'
               $.each(category.results, function (index, result) {
                 if (result[fields.url]) {
                   html +=
-                    '<a class="result" href="' + result[fields.url] + '">';
+                    '<a class="result" href="' + result[fields.url] + '">'
                 } else {
-                  html += '<a class="result">';
+                  html += '<a class="result">'
                 }
                 if (result[fields.image] !== undefined) {
                   html +=
-                    "" +
+                    '' +
                     '<div class="image">' +
                     ' <img src="' +
                     result[fields.image] +
                     '">' +
-                    "</div>";
+                    '</div>'
                 }
-                html += '<div class="content">';
+                html += '<div class="content">'
                 if (result[fields.price] !== undefined) {
                   html +=
-                    '<div class="price">' + result[fields.price] + "</div>";
+                    '<div class="price">' + result[fields.price] + '</div>'
                 }
                 if (result[fields.title] !== undefined) {
                   html +=
-                    '<div class="title">' + result[fields.title] + "</div>";
+                    '<div class="title">' + result[fields.title] + '</div>'
                 }
                 if (result[fields.description] !== undefined) {
                   html +=
                     '<div class="description">' +
                     result[fields.description] +
-                    "</div>";
+                    '</div>'
                 }
-                html += "" + "</div>";
-                html += "</a>";
-              });
-              html += "</div>";
-              html += "" + "</div>";
+                html += '' + '</div>'
+                html += '</a>'
+              })
+              html += '</div>'
+              html += '' + '</div>'
             }
-          });
+          })
           if (response[fields.action]) {
             html +=
-              "" +
+              '' +
               '<a href="' +
               response[fields.action][fields.actionURL] +
               '" class="action">' +
               response[fields.action][fields.actionText] +
-              "</a>";
+              '</a>'
           }
-          return html;
+          return html
         }
-        return false;
+        return false
       },
       standard: function (response, fields) {
-        var html = "";
+        let html = ''
         if (response[fields.results] !== undefined) {
           // each result
           $.each(response[fields.results], function (index, result) {
             if (result[fields.url]) {
-              html += '<a class="result" href="' + result[fields.url] + '">';
+              html += '<a class="result" href="' + result[fields.url] + '">'
             } else {
-              html += '<a class="result">';
+              html += '<a class="result">'
             }
             if (result[fields.image] !== undefined) {
               html +=
-                "" +
+                '' +
                 '<div class="image">' +
                 ' <img src="' +
                 result[fields.image] +
                 '">' +
-                "</div>";
+                '</div>'
             }
-            html += '<div class="content">';
+            html += '<div class="content">'
             if (result[fields.price] !== undefined) {
-              html += '<div class="price">' + result[fields.price] + "</div>";
+              html += '<div class="price">' + result[fields.price] + '</div>'
             }
             if (result[fields.title] !== undefined) {
-              html += '<div class="title">' + result[fields.title] + "</div>";
+              html += '<div class="title">' + result[fields.title] + '</div>'
             }
             if (result[fields.description] !== undefined) {
               html +=
                 '<div class="description">' +
                 result[fields.description] +
-                "</div>";
+                '</div>'
             }
-            html += "" + "</div>";
-            html += "</a>";
-          });
+            html += '' + '</div>'
+            html += '</a>'
+          })
 
           if (response[fields.action]) {
             html +=
-              "" +
+              '' +
               '<a href="' +
               response[fields.action][fields.actionURL] +
               '" class="action">' +
               response[fields.action][fields.actionText] +
-              "</a>";
+              '</a>'
           }
-          return html;
+          return html
         }
-        return false;
-      },
-    },
-  };
-})(jQuery, window, document);
+        return false
+      }
+    }
+  }
+})(jQuery, window, document)
