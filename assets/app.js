@@ -1,6 +1,3 @@
-import * as JSZip from 'jszip'
-import { saveAs } from 'file-saver'
-
 const downloadBtn = $(
   '<button class="ui labeled icon red button" id="download" type="button"><i class="cloud icon"></i>Download</button>'
 )
