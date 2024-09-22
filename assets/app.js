@@ -412,3 +412,7 @@ $(document).ready(function () {
     return disambiguatedEmoji
   }
 })
+
+function helpModal () {
+  $('.ui.basic.modal').modal('show');
+};
