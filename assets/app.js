@@ -413,10 +413,3 @@ $(document).ready(function () {
     return disambiguatedEmoji
   }
 })
-
-//const helpModal = () => {
-//  $(".ui.basic.modal").modal("show");
-//};
-//function helpModal() {
-//  $(".ui.basic.modal").modal("show");
-//};
