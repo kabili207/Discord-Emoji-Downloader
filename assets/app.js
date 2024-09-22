@@ -413,6 +413,9 @@ $(document).ready(function () {
   }
 })
 
-//function helpModal () {
-//  $('.ui.basic.modal').modal('show');
-//};
+const helpModal = () => {
+  $(".ui.basic.modal").modal("show");
+};
+function helpModal() {
+  $(".ui.basic.modal").modal("show");
+};
