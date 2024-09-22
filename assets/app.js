@@ -89,6 +89,13 @@ $(document).ready(function () {
   $('#emojis2').hide()
   $('#stickers').hide()
 
+  $("#tokenHelp").click(() => {
+    $(".ui.basic.modal").modal("show");
+  });
+  $("button#continue").click(() => {
+    $("#error").hide();
+  });
+
   globalThis.guild = []
   globalThis.emojis = []
   globalThis.stickers = []
@@ -97,9 +104,9 @@ $(document).ready(function () {
 
     let success
     let token = $('#token').val()
+    if (!token) return error("Invalid token.");
     $('#continue').addClass('loading')
 
-    if (!token) return
     token = token.replace(/^"(.+)"$/, '$1')
 
     success = true
@@ -225,10 +232,11 @@ $(document).ready(function () {
 
   $('#default-2 #submit').click(async (e) => {
     e.preventDefault(e)
-
-    if (!globalThis.emojis.length && !globalThis.stickers.length) { return error('Please select at least one emoji or sticker.') }
+    if (!globalThis.emojis.length && !globalThis.stickers.length)
+      return error("Please select at least one emoji or sticker.");
     try {
-      if (globalThis.guild.emojis.length < 1 && globalThis.guild.stickers.length < 1) { return error("This server doesn't have any emojis or stickers!") }
+      if (globalThis.guild.emojis.length < 1 && globalThis.guild.stickers.length < 1)
+        return error("This server doesn't have any emojis or stickers!");
       const cleanGuildName = globalThis.guild.name
         .replace(/\s/g, '_')
         .replace(/\W/g, '')
@@ -244,7 +252,7 @@ $(document).ready(function () {
 
       let emojiCount = 0
       for (const i in renamedEmoji) {
-        let res
+        let res;
         try {
           res = await fetch(
             Emoji(renamedEmoji[i].id, renamedEmoji[i].animated)
@@ -267,7 +275,7 @@ $(document).ready(function () {
       const renamedStickers = globalThis.stickers
       let stickerCount = 0
       for (const i in renamedStickers) {
-        let res
+        let res;
         try {
           res = await fetch(Sticker(renamedStickers[i].id)).then((res) =>
             res.blob()
@@ -358,10 +366,6 @@ $(document).ready(function () {
     } catch (err) {
       return error('Recheck your code, it threw some syntax errors.', err)
     }
-  })
-
-  $('button#continue').click(() => {
-    $('#error').hide()
   })
 
   function show (id) {
