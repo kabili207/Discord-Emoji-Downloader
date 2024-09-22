@@ -69,7 +69,7 @@
 
     try {
       xhr.send();
-    } catch (e) {}
+    } catch (e) { /* empty */ }
 
     return xhr.status >= 200 && xhr.status <= 299;
   } // `a.click()` doesn't work for all browsers (#465)
