@@ -247,6 +247,19 @@ $(document).ready(function () {
       const renamedEmoji = renameEmoji(globalThis.emojis)
       const zip = new JSZip()
 
+      const logoUrl = `https://cdn.discordapp.com/icons/${globalThis.guild.id}/${globalThis.guild.icon}.png`
+      
+      let logoRes;
+      try {
+        logoRes = await fetch(logoUrl).then((logoRes) => logoRes.blob())
+      } catch {
+        console.log(
+          `Emoji ${renamedEmoji[i].id} blocked by CORS, trying proxy`
+        )
+        logoRes = await fetch(`https://corsproxy.io/?${logoUrl}`).then((logoRes) => logoRes.blob())
+      }
+      zip.file(`logo.png`, logoRes)
+
       const emojiFolder = zip.folder('Emojis')
       const stickerFolder = zip.folder('Stickers')
 
