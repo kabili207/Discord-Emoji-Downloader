@@ -4,8 +4,8 @@ const downloadBtn = $(
 const Emoji = (emojiID, animated = false) =>
   `https://cdn.discordapp.com/emojis/${emojiID}.${animated ? 'gif' : 'png'}?v=1`
 // media.discordapp.net was used instead of cdn.discordapp.com to bypass CORS problems
-const Sticker = (stickerID) =>
-  `https://media.discordapp.net/stickers/${stickerID}.png?size=1024`
+const Sticker = (stickerID, isGif = false) =>
+  `https://media.discordapp.net/stickers/${stickerID}.${isGif ? 'gif' : 'png'}?size=1024`
 const API = {
   host: 'https://discord.com/api/v10',
   emojis: (guild) => `/guilds/${guild}/emojis`,
@@ -202,7 +202,7 @@ $(document).ready(function () {
         const stickersDropdown = []
         for (const sticker of globalThis.stickers) {
           stickersDropdown.push({
-            name: `<img src="${Sticker(sticker.id)}" style="width: 5em!important; height: 5em!important;" /> ${sticker.name}`,
+            name: `<img src="${Sticker(sticker.id, sticker.format_type == 4)}" style="width: 5em!important; height: 5em!important;" /> ${sticker.name}`,
             value: sticker.id,
             selected: true
           })
@@ -276,8 +276,9 @@ $(document).ready(function () {
       let stickerCount = 0
       for (const i in renamedStickers) {
         let res;
+        const isGif = renamedStickers[i].format_type == 4;
         try {
-          res = await fetch(Sticker(renamedStickers[i].id)).then((res) =>
+          res = await fetch(Sticker(renamedStickers[i].id, isGif)).then((res) =>
             res.blob()
           )
         } catch {
@@ -285,10 +286,13 @@ $(document).ready(function () {
             `Sticker ${renamedStickers[i].id} blocked by CORS, trying proxy`
           )
           res = await fetch(
-            `https://corsproxy.io/?${Sticker(renamedStickers[i].id)}`
+            `https://corsproxy.io/?${Sticker(renamedStickers[i].id, isGif)}`
           ).then((res) => res.blob())
         }
-        stickerFolder.file(`${renamedStickers[i].name}.png`, res)
+        stickerFolder.file(
+          `${renamedStickers[i].name}.${isGif ? 'gif' : 'png'}`,
+          res
+        )
         stickerCount++
       }
 
