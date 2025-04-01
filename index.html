@@ -2,167 +2,65 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
     <title>Discord Emoji Downloader</title>
     <link rel="icon" type="image/x-icon" href="./assets/favicon.ico" integrity="sha512-vbdFT1syb6b2KEpW6O0KItQG4C9vw9HHtW8sTtIM6qdQ+0B8Z+fP107tMixjptP2fWd0MBeyNLQJo1TfEOGzaQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <meta name="author" content="NanashiTheNameless" />
-    <meta
-      name="description"
-      content="Get all emojis from a server in a ZIP file."
-    />
-    <meta
-      name="keywords"
-      content="discord, emoji, emojis, discordapp, discord app, emoji downloader, download emoji"
-    />
+    <meta name="description" content="Get all emojis from a server in a ZIP file." />
+    <meta name="keywords" content="discord, emoji, emojis, discordapp, discord app, emoji downloader, download emoji" />
     <meta name="theme-color" content="#7289DA" />
-
     <meta property="og:title" content="Discord Emoji Downloader" />
-    <meta
-      property="og:description"
-      content="Get all emojis from a server in a ZIP file."
-    />
+    <meta property="og:description" content="Get all emojis from a server in a ZIP file." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://discord.namelessnanashi.dev/" />
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
     <link rel="stylesheet" type="text/css" href="./assets/app.css" integrity="sha512-gFk5cr9PGUywC9127ipRUIWopUNJ86P0tgVmXXcRsDU9X+omBMlSsAzbXsplwVUtXmj18LBuGbDlrY2TtLsJxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="manifest" href="./manifest.json" integrity="sha512-mjEDh1oTNRJ0sM/FdxkkWgzjJVt4Fz8CsPUWe+71u15VVwB7Skre86KpTzI5tJjMMjopMdH3uuV/PjVZFfoE7g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
-
   <body>
     <div class="ui inverted raised very padded text container segment">
       <h1 class="ui header">Discord Emoji Downloader</h1>
-
-      <div class="ui inverted secondary pointing menu">
-        <a class="item active" data-tab="default">Default</a>
-        <a class="item" data-tab="manual">Manual</a>
-      </div>
-
-      <div
-        class="ui inverted tab segment active"
-        id="default-1"
-        data-tab="default"
-      >
+      <div class="ui inverted secondary pointing menu"><a class="item active" data-tab="default">Default</a><a class="item" data-tab="manual">Manual</a></div>
+      <div class="ui inverted tab segment active" id="default-1" data-tab="default">
         <div class="ui warning message">
-          <div class="header">
-            Warning: be careful, sharing your user token can be dangerous!
-          </div>
-          This page does not use your user token in any harmful way and only
-          uses it to authenticate with Discord, fetch your server list and their
-          emojis.<br />
-          (<a
-            href="https://github.com/NanashiTheNameless/Discord-Emoji-Downloader"
-            target="_blank"
-            >Source Code can be found here</a
-          >)
+          <div class="header"> Warning: be careful, sharing your user token can be dangerous! </div> This page does not use your user token in any harmful way and only uses it to authenticate with Discord, fetch your server list and their emojis.<br /> (<a href="https://github.com/NanashiTheNameless/Discord-Emoji-Downloader" target="_blank">Source Code can be found here</a>)
         </div>
         <form class="ui inverted form">
-          <div class="field">
-            <label
-              >User Token
-              <span class="link" onclick="javascript:helpModal();"
-                >(How do I get my Token?)</span
-              >
-            </label>
-            <input
-              type="password"
-              name="token"
-              id="token"
-              placeholder="mfa.ABcd1e2Fgh3i-jKlmnoPQRstu4VWx4yz5A6b7cDEFGhiJk8LmNOPqR_sSTUV9XyzabcdeF0Xd"
-            />
-          </div>
-          <button name="continue" id="continue" class="ui button">
-            Continue
-          </button>
+          <div class="field"><label>User Token <span class="link" onclick="javascript:helpModal();">(How do I get my Token?)</span></label><input type="password" name="token" id="token" placeholder="mfa.ABcd1e2Fgh3i-jKlmnoPQRstu4VWx4yz5A6b7cDEFGhiJk8LmNOPqR_sSTUV9XyzabcdeF0Xd" /></div><button name="continue" id="continue" class="ui button"> Continue </button>
         </form>
       </div>
-
-      <div
-        class="ui inverted tab segment"
-        id="default-2"
-        data-tab="default-hide"
-      >
+      <div class="ui inverted tab segment" id="default-2" data-tab="default-hide">
         <form class="ui inverted form">
-          <div class="field">
-            <label>Server</label>
-            <div class="ui fluid search selection dropdown" id="server-select">
-              <input type="hidden" name="server" />
-              <i class="dropdown icon"></i>
+          <div class="field"><label>Server</label>
+            <div class="ui fluid search selection dropdown" id="server-select"><input type="hidden" name="server" /><i class="dropdown icon"></i>
               <div class="default text">Select Server</div>
             </div>
           </div>
-          <div class="field" id="emojis">
-            <label>Select emojis <span id="emojicount"></span></label>
-            <div
-              class="ui fluid multiple search selection dropdown"
-              id="emoji-select"
-            >
-              <input type="hidden" name="emojis" />
-              <i class="dropdown icon"></i>
+          <div class="field" id="emojis"><label>Select emojis <span id="emojicount"></span></label>
+            <div class="ui fluid multiple search selection dropdown" id="emoji-select"><input type="hidden" name="emojis" /><i class="dropdown icon"></i>
               <div class="default text">Select Emojis</div>
             </div>
           </div>
-          <div class="field" id="emojis2">
-            <label>Select emojis <span id="emojicount2"></span></label>
-            <div
-              class="ui fluid multiple search selection dropdown"
-              id="emoji-select2"
-            >
-              <input type="hidden" name="emojis2" />
-              <i class="dropdown icon"></i>
+          <div class="field" id="emojis2"><label>Select emojis <span id="emojicount2"></span></label>
+            <div class="ui fluid multiple search selection dropdown" id="emoji-select2"><input type="hidden" name="emojis2" /><i class="dropdown icon"></i>
               <div class="default text">Select Emojis</div>
             </div>
           </div>
-          <div class="field" id="stickers">
-            <label>Select stickers <span id="stickercount"></span></label>
-            <div
-              class="ui fluid multiple search selection dropdown"
-              id="sticker-select"
-            >
-              <input type="hidden" name="stickers" />
-              <i class="dropdown icon"></i>
+          <div class="field" id="stickers"><label>Select stickers <span id="stickercount"></span></label>
+            <div class="ui fluid multiple search selection dropdown" id="sticker-select"><input type="hidden" name="stickers" /><i class="dropdown icon"></i>
               <div class="default text">Select Sticker</div>
             </div>
           </div>
-          <div class="field">
-            <button name="submit" id="submit" class="ui primary button">
-              Submit
-            </button>
-          </div>
+          <div class="field"><button name="submit" id="submit" class="ui primary button"> Submit </button></div>
         </form>
       </div>
       <div class="ui inverted tab segment" id="manual" data-tab="manual">
         <!-- <div id="manual"> -->
-        <p>
-          Make a GET request to
-          <code style="user-select: all"
-            >https://discord.com/api/v10/guilds/&lt;SERVER ID&gt;</code
-          >, with <code>&lt;SERVER ID&gt;</code> being the server ID, and with
-          &lt;TOKEN&gt; being your token<span
-            class="link"
-            onclick="javascript:helpModal();"
-            >(?)</span
-          >. Then copy paste the response JSON data in the textarea below
-          <i>(in which an example is placed)</i>.
+        <p> Make a GET request to <code style="user-select: all">https://discord.com/api/v10/guilds/&lt;SERVER ID&gt;</code>, with <code>&lt;SERVER ID&gt;</code> being the server ID, and with &lt;TOKEN&gt; being your token <span class="link" onclick="javascript:helpModal();">(?)</span>. Then copy paste the response JSON data in the textarea below <i>(in which an example is placed)</i>. </p>
+        <p> Source Code can be found <a href="https://github.com/NanashiTheNameless/Discord-Emoji-Downloader">Here!</a>
         </p>
-        <p>
-          Source Code can be found
-          <a
-            href="https://github.com/NanashiTheNameless/Discord-Emoji-Downloader"
-            >Here!</a
-          >
-        </p>
-        <p>
-          For an example on how to perform the get request, this should work
-        </p>
-
-        <div
-          style="
+        <p> For an example on how to perform the get request, this should work </p>
+        <div style="
             height: 165px;
             width: 100%;
             border: 2px solid #808080;
@@ -172,24 +70,14 @@
               Serif;
             overflow: auto;
             word-wrap: break-word;
-          "
-        >
-          <font size="font-size:1vw"
-            ><code
-              style="
+          ">
+          <font size="font-size:1vw">
+            <code style="
                 -webkit-user-select: all;
                 user-select: all;
                 word-wrap: break-word;
-              "
-              >curl 'https://discord.com/api/v10/guilds/&lt;SERVER ID&gt;'
-              --compressed -H 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)
-              AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0
-              Safari/537.3' -H 'Accept: */*' -H 'Accept-Language:
-              en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H
-              'Referer: https://discord.com/app' -H 'Authorization:
-              &lt;TOKEN&gt;'</code
-            ></font
-          >
+              ">curl 'https://discord.com/api/v10/guilds/&lt;SERVER ID&gt;' --compressed -H 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.3' -H 'Accept: */*' -H 'Accept-Language: en-US,en;q=0.5' -H 'Accept-Encoding: gzip, deflate, br, zstd' -H 'Referer: https://discord.com/app' -H 'Authorization: &lt;TOKEN&gt;'</code>
+          </font>
         </div>
         <p></p>
         <div class="ui inverted form">
@@ -198,14 +86,10 @@
             <div id="editor" style="height: 350px; width: 100%"></div>
           </div>
           <div class="field">
-            <button name="submit" id="submit" class="ui primary button">
-              Submit
-            </button>
+            <button name="submit" id="submit" class="ui primary button"> Submit </button>
           </div>
-        </div>
-      </div>
-
-      <div id="messages">
+        </div>undefined
+      </div>undefined<div id="messages">
         <div class="ui icon message" id="loading">
           <i class="notched circle loading icon"></i>
           <div class="content">
@@ -213,84 +97,48 @@
             <p id="loading-msg">Collecting the emojis/stickers for you.</p>
           </div>
         </div>
-
         <div class="ui icon success message" id="success">
           <i class="smile icon"></i>
           <div class="content">
             <div class="header" id="success-header">We found them!</div>
-            <p id="success-msg">
-              Found <strong id="emoji-count">NaN</strong> emojis and
-              <strong id="sticker-count">NaN</strong> stickers which are packed
-              in a ZIP file above.
-            </p>
+            <p id="success-msg"> Found <strong id="emoji-count">NaN</strong> emojis and <strong id="sticker-count">NaN</strong> stickers which are packed in a ZIP file above. </p>
           </div>
         </div>
-
         <div class="ui icon error message" id="error">
           <i class="warning circle icon"></i>
           <div class="content">
             <div class="header" id="error-header">An error occured</div>
             <p id="error-msg"></p>
           </div>
-        </div>
-      </div>
-
-      <div class="ui basic modal">
+        </div>undefined
+      </div>undefined<div class="ui basic modal">
         <div class="ui icon header">How to get your user token</div>
         <div class="content">
           <p></p>
           <ul>
-            <li>
-              Open the Discord desktop app or login on the Discord website
-              <a href="https://discord.com/app" target="_blank">here</a>
+            <li> Open the Discord desktop app or login on the Discord website <a href="https://discord.com/app" target="_blank">here</a>
             </li>
-            <li>
-              Open the Dev Tools with the keyboard shortcut
-              <pre>F12</pre>
-              or
-              <pre>Ctrl + Shift + I</pre>
-              or
+            <li> Open the Dev Tools with the keyboard shortcut
+              <pre>F12</pre> or
+              <pre>Ctrl + Shift + I</pre> or
               <pre>Ctrl + Shift + C</pre>
             </li>
-            <li>
-              To enable the ability to paste in the console you might need to
-              type "<code style="user-select: all">allow pasting</code>"
+            <li> To enable the ability to paste in the console you might need to type " <code style="user-select: all">allow pasting</code>" </li>
+            <li> Paste and execute the following snippet: <code style="user-select: all">(webpackChunkdiscord_app.push([[''],{},e=&gt;{m=[];for(let c in e.c)m.push(e.c[c])}]),m).find(m=&gt;m?.exports?.default?.getToken!==void 0).exports.default.getToken()</code>
             </li>
-            <li>
-              Paste and execute the following snippet:
-              <code style="user-select: all"
-                >(webpackChunkdiscord_app.push([[''],{},e=&gt;{m=[];for(let c in
-                e.c)m.push(e.c[c])}]),m).find(m=&gt;m?.exports?.default?.getToken!==void
-                0).exports.default.getToken()</code
-              >
-            </li>
-            <li>
-              Your token will be returned at the bottom of the console. Copy the
-              contents between "". This is your self token.
-            </li>
+            <li> Your token will be returned at the bottom of the console. Copy the contents between "". This is your self token. </li>
           </ul>
         </div>
         <div class="actions">
           <div class="ui green ok inverted button">
-            <i class="checkmark icon"></i>
-            Got it
+            <i class="checkmark icon"></i> Got it
           </div>
-        </div>
-      </div>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.min.js" integrity="sha512-xylzfb6LZn1im1ge493MNv0fISAU4QkshbKz/jVh6MJFAlZ6T1NRDJa0ZKb7ECuhSTO7fVy8wkXkT95/f4R4nA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/mode-json.min.js" integrity="sha512-K+H+3WTfhwE9fnfv4makUYJxz4kwIadQPOjGHAmOT96FtMSPRnvnuGR/sZjuNB2MmmHQ94Mnc9zoDxTHKMMEww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script type="module" src="./assets/app.js" integrity="sha512-hD21nioAOZs2MJV5YpLhJy5C1C6rs0kyv44rVCyIyeTwyLPBiBF4ORivJszGh3G3dNdrmp876ds4R22buVhaxQ==" crossorigin="anonymous" referrerpolicy="no-referrer" ></script>
-    <script>
+        </div>undefined
+      </div>undefined
+    </div>undefined<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/ace.min.js" integrity="sha512-xylzfb6LZn1im1ge493MNv0fISAU4QkshbKz/jVh6MJFAlZ6T1NRDJa0ZKb7ECuhSTO7fVy8wkXkT95/f4R4nA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>undefined<script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.36.2/mode-json.min.js" integrity="sha512-K+H+3WTfhwE9fnfv4makUYJxz4kwIadQPOjGHAmOT96FtMSPRnvnuGR/sZjuNB2MmmHQ94Mnc9zoDxTHKMMEww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>undefined<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>undefined<script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>undefined<script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js" integrity="sha512-Qlv6VSKh1gDKGoJbnyA5RMXYcvnpIqhO++MhIM2fStMcGT9i2T//tSwYFlcyoRRDcDZ+TYHpH8azBBCyhpSeqw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>undefined<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js" integrity="sha512-XMVd28F1oH/O71fzwBnV7HucLxVwtxf26XV8P4wPk26EDxuGZ91N8bsOttmnomcCD3CS5ZMRL50H0GgOHvegtg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>undefined<script type="module" src="./assets/app.js" integrity="sha512-hD21nioAOZs2MJV5YpLhJy5C1C6rs0kyv44rVCyIyeTwyLPBiBF4ORivJszGh3G3dNdrmp876ds4R22buVhaxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>undefined<script>
       const helpModal = () => {
-          $('.ui.basic.modal').modal('show')
+        $('.ui.basic.modal').modal('show')
       }
-    </script>
-  </body>
+    </script>undefined
+  </body>undefined
 </html>
