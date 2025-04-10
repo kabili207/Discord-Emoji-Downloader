@@ -254,7 +254,7 @@ $(document).ready(function () {
         logoRes = await fetch(logoUrl).then((logoRes) => logoRes.blob())
       } catch {
         console.log(
-          `Emoji ${renamedEmoji[i].id} blocked by CORS, trying proxy`
+          `Logo blocked by CORS, trying proxy`
         )
         logoRes = await fetch(`https://corsproxy.io/?${logoUrl}`).then((logoRes) => logoRes.blob())
       }
