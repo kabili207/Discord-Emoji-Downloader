@@ -1,4 +1,12 @@
 {
+  "globals": {
+    "$": false,
+    "jQuery": false,
+    "error": false,
+    "saveAs": false,
+    "ace": false,
+    "JSZip": false
+  },
   "iterator": true,
   "esversion": 6
 }
