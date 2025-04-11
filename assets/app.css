@@ -1,10 +1,10 @@
 body {
   background: #2b2b2b;
-  height: 0% !important;
+  height: 0 !important;
   margin: 2%;
 }
 
-#messages div.message {
+#messages .message {
   display: none;
 }
 
