@@ -315,6 +315,7 @@ $(document).ready(function () {
     e.preventDefault()
     const code = editor.getSession().getValue()
     if (!code) return error('You should probably get some code in there.')
+    // NOPMD UnnecessaryBlock - this block is intentionally used
     try {
       const guild = JSON.parse(code)
       if (!guild.id) {

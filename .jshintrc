@@ -7,6 +7,7 @@
     "ace": false,
     "JSZip": false
   },
+  "asi": true,
   "iterator": true,
   "esversion": 6
 }
