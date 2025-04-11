@@ -210,7 +210,7 @@ $(document).ready(function () {
         const stickersDropdown = [];
         for (const sticker of globalThis.stickers) {
           stickersDropdown.push({
-            name: `<img src="${Sticker(sticker.id, sticker.format_type == 4)}" style="width: 5em!important; height: 5em!important;" /> ${sticker.name}`,
+            name: `<img src="${Sticker(sticker.id, sticker.format_type === 4)}" style="width: 5em!important; height: 5em!important;" /> ${sticker.name}`,
             value: sticker.id,
             selected: true
           });
@@ -285,7 +285,7 @@ $(document).ready(function () {
       let stickerCount = 0;
       for (const i in renamedStickers) {
         let res;
-        const isGif = renamedStickers[i].format_type == 4;
+        const isGif = renamedStickers[i].format_type === 4;
         try {
           res = await fetch(Sticker(renamedStickers[i].id, isGif)).then((res) =>
             res.blob()
